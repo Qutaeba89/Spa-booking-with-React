@@ -1,9 +1,9 @@
-import Calendar from 'react-calendar'
+import BookingCalendar from './components/calendar'
 
 function App() {
   return(
     <>
-       <Calendar />
+       <BookingCalendar />
     </>
    );
 }
