@@ -33,7 +33,7 @@ margin-bottom: 15px;
 font-weight: bold;
 }
 
-.booking-form .button-group {
+/* .booking-form .button-group {
 display: flex;
 justify-content: space-between;
 margin-bottom: 15px;
@@ -57,7 +57,7 @@ background-color: #218838;
 
 .booking-form .button-group button:hover {
 background-color: #218838;
-}
+} */
 
 .booking-form select {
 padding: 8px;

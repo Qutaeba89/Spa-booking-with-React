@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
-import './bookingForm.css';
+import './bookingForm.css'
+import './animatedButtons.css'
 
 function BookingForm() {
 
     const [numOfGuests, setNumOfGuests] = useState<number>(0);
     const [selectedTimeslot, setSelectedTimeslot] = useState<string | null>(null);
+    const timeslotInfo: { [key: string]: string } = {
+        Sunrise: "06:00 - 10:00",
+        Day: "12:00 - 16:00",
+        Sunset: "18:00 - 22:00"
+    };
 
     function priceCalc({ packageType, numOfGuests }: { packageType: String, numOfGuests: number}) {
         return (350 + numOfGuests * (packageType == "hot" ? 700 : 500))
@@ -21,14 +27,17 @@ function BookingForm() {
                     <span>Varm Behandling</span>
                     <div className='button-group'>
                         {['Sunrise', 'Day', 'Sunset'].map((timeslot) =>
-                            <button
+                            <div key={timeslot} className='timeslot-container'>
+                                <button
                                 key={timeslot}
                                 type='button'
                                 className={selectedTimeslot === timeslot ? 'selected' : ''}
                                 onClick={() => setSelectedTimeslot(timeslot)}
-                            >
-                                {timeslot}
-                            </button>
+                                >
+                                    <span>{timeslot}</span>
+                                    <span className='timeslot-info'>{timeslotInfo[timeslot]}</span>
+                                </button>
+                            </div>
                         )}
                     </div>
                     <select 
