@@ -20,7 +20,7 @@ const bookings: Day[] = [
 function BookingCalendar() {
 
     function isMonday({ date, view }: { date: Date, view: string}) {
-        if(date.getDay() == 1 && view == 'month') {
+        if(date.getDay() === 1 && view === 'month') {
             return true;
         }
         return false;
@@ -37,7 +37,7 @@ function BookingCalendar() {
         let booking!: Day;
 
         for (let i = 0; i < bookings.length; i++) {
-            if (bookings[i].date == dateString) {
+            if (bookings[i].date === dateString) {
                 booking = bookings[i];
                 break;
             }
@@ -46,7 +46,7 @@ function BookingCalendar() {
         if (!booking) {
             return 'greenDay';
         }
-        if (booking.availableTimes == 0) {
+        if (booking.availableTimes === 0) {
             return 'redDay';
         }
         if (booking.availableTimes < 3) {
