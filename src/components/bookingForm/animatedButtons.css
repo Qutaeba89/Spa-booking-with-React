@@ -1,0 +1,136 @@
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.button-group button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    height: 100px;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.button-group .timeslot-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    margin: 0 5px;
+}
+
+.timeslot-container:nth-child(1) button {
+    background: linear-gradient(to bottom, #ff7e00, #ffb14d 50%, #7ec850);
+}
+
+.timeslot-container:nth-child(2) button {
+    background: linear-gradient(to bottom, #64b5f6, #90caf9 50%, #7ec850);
+}
+
+.timeslot-container:nth-child(3) button {
+    background: linear-gradient(to bottom, #ff5252, #ff8a80 50%, #7ec850);
+}
+
+
+/* Sun */
+.button-group button::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #ffeb3b;
+    border-radius: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50px;
+    box-shadow: 0 0 20px rgba(255, 235, 59, 0.8);
+    transition: all 0.4s ease-out;
+    z-index: 1; 
+}
+
+/* Ground */
+.button-group button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background-color: #7ec850;
+    border-top-left-radius: 50% 5px;
+    border-top-right-radius: 50% 5px;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.button-group button.selected::before {
+    top: 15px;
+    width: 40px;
+    height: 40px;
+    box-shadow:
+		0 0 0 4px #ffeb3b80,
+		0 0 0 8px #ffeb3b40,
+		0 0 0 12px #ffeb3b20,
+		0 0 0 16px #ffeb3b10,
+		0 0 0 20px #ffeb3b00,
+		0 0 8px 20px #ffeb3b10;
+	animation:
+		sunrise 2s infinite linear forwards,
+		rays 2s 2s infinite linear;
+}
+
+@keyframes sunrise {
+	0% {
+		box-shadow: none;
+	}
+}
+
+@keyframes rays {
+	0% {
+		box-shadow: 
+		0 0 0 0 #ffeb3b80,
+		0 0 0 4px #ffeb3b80,
+		0 0 0 8px #ffeb3b40,
+		0 0 0 12px #ffeb3b20,
+		0 0 0 16px #ffeb3b10,
+		0 0 8px 20px #ffeb3b10;
+	}
+	100% {
+		box-shadow: 
+		0 0 0 4px #ffeb3b80,
+		0 0 0 8px #ffeb3b40,
+		0 0 0 12px #ffeb3b20,
+		0 0 0 16px #ffeb3b10,
+		0 0 0 20px #ffeb3b00,
+		0 0 8px 20px #ffeb3b10;
+	}
+}
+
+.button-group button span {
+    position: relative;
+    z-index: 3;
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: -5px;
+}
+
+.button-group button:hover {
+    transform: translateY(-2px);
+}
+
+.timeslot-info {
+    font-size: 10px;
+}
