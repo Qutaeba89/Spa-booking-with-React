@@ -2,7 +2,7 @@ import React from 'react'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 
-function BookingCalendar() {
+function BookingCalendar({ packageChoice }: { packageChoice: string | null }) {
 
     function isMonday({ date, view }: { date: Date, view: string}) {
         if(date.getDay() == 1 && view == 'month') {
