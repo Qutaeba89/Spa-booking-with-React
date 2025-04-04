@@ -33,32 +33,6 @@ margin-bottom: 15px;
 font-weight: bold;
 }
 
-/* .booking-form .button-group {
-display: flex;
-justify-content: space-between;
-margin-bottom: 15px;
-}
-
-.booking-form .button-group button {
-flex: 1;
-margin: 0 5px;
-padding: 10px;
-background-color: #28a745;
-color: white;
-border: none;
-border-radius: 4px;
-cursor: pointer;
-transition: background-color 0.3s ease;
-}
-
-.booking-form .button-group button.selected {
-background-color: #218838;
-}
-
-.booking-form .button-group button:hover {
-background-color: #218838;
-} */
-
 .booking-form select {
 padding: 8px;
 border: 1px solid #ccc;
