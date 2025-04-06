@@ -1,0 +1,21 @@
+.header-bar {
+    background-color: gray;
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+    border-bottom: 3px;
+}
+
+.header-title {
+    position: relative;
+    top: -30px;
+    color: black;
+    font-size: 150%;
+}
+
+.candle {
+    height: auto;
+    width: 70px;
+    margin-left: 100px;
+}
+
