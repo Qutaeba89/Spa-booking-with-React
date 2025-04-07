@@ -25,3 +25,9 @@ body {
     background-position: center;
 }
 
+.calender {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40vh; /* full page height */
+  }

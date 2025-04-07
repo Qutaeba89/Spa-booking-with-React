@@ -12,9 +12,11 @@ function App() {
          <span className='header-title'>Spa med Spa</span>
          <img src='/candle.gif' className='candle'/>
       </header>
-			<PackageButtons packageChoice={packageChoice} setPackageChoice={setPackageChoice} />
-			<BookingCalendar packageChoice={packageChoice} />
-			<BookingForm packageChoice={packageChoice} />
+			<div className='calender'>
+				<PackageButtons packageChoice={packageChoice} setPackageChoice={setPackageChoice} />
+				<BookingCalendar packageChoice={packageChoice} />
+				<BookingForm packageChoice={packageChoice} />
+			</div>
 		</>
 	);
 }
