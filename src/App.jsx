@@ -1,18 +1,22 @@
 import BookingCalendar from './components/calendar/bookingCalendar'
 import BookingForm from './components/bookingForm/bookingForm';
-import './App.css'
+import PackageButtons from './components/packageButtons/packageButtons';
+import React, { useState } from 'react';
+import './App.css';
 
 function App() {
-  return(
-    <>  
+	const [packageChoice, setPackageChoice] = useState(null);
+	return(
+		<>
       <header className='header-bar'>
          <span className='header-title'>Spa med Spa</span>
          <img src='/candle.gif' className='candle'/>
       </header>
-      <BookingCalendar />
-      <BookingForm />
-    </>
-   );
+			<PackageButtons packageChoice={packageChoice} setPackageChoice={setPackageChoice} />
+			<BookingCalendar packageChoice={packageChoice} />
+			<BookingForm packageChoice={packageChoice} />
+		</>
+	);
 }
 
 

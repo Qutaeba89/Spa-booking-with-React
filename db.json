@@ -1,0 +1,49 @@
+{
+  "booking": [
+    {
+      "id": "b10a",
+      "name": "qutaiba",
+      "email": "qutaebadandashi@gmail.com",
+      "timeslot": "Sunrise",
+      "nrOfPeople": 2,
+      "totalPrice": 1750,
+      "packageType": "hot"
+    },
+    {
+      "id": "e0fc",
+      "name": "qutaiba",
+      "email": "qutaebadandashi@gmail.com",
+      "timeslot": "Day",
+      "nrOfPeople": 2,
+      "totalPrice": 1750,
+      "packageType": "hot"
+    },
+    {
+      "id": "febe",
+      "name": "quta",
+      "email": "qutaebadandashi@gmail.com",
+      "timeslot": "Day",
+      "nrOfPeople": 3,
+      "totalPrice": 2450,
+      "packageType": "hot"
+    },
+    {
+      "id": "999d",
+      "name": "dsa",
+      "email": "qweq",
+      "timeslot": "Sunset",
+      "nrOfPeople": 2,
+      "totalPrice": 1750,
+      "packageType": "hot"
+    },
+    {
+      "id": "b225",
+      "name": "qwee",
+      "email": "sadaw",
+      "timeslot": "Day",
+      "nrOfPeople": 3,
+      "totalPrice": 2450,
+      "packageType": "hot"
+    }
+  ]
+}

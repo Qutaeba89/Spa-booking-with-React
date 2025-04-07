@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import './bookingForm.css'
 import './animatedButtons.css'
 
-function BookingForm() {
+function BookingForm({ packageChoice }: { packageChoice: string | null }) {
 
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
     const [numOfGuests, setNumOfGuests] = useState<number>(0);
     const [selectedTimeslot, setSelectedTimeslot] = useState<string | null>(null);
     const timeslotInfo: { [key: string]: string } = {
@@ -15,14 +17,45 @@ function BookingForm() {
     function priceCalc({ packageType, numOfGuests }: { packageType: String, numOfGuests: number}) {
         return (350 + numOfGuests * (packageType == "hot" ? 700 : 500))
     }
+    function fromSubmit(e: React.FormEvent) {
+        e.preventDefault();
+
+        const bookingData = {
+            name: name,
+            email: email,
+            timeslot: selectedTimeslot,
+            nrOfPeople: numOfGuests,
+            totalPrice: priceCalc({ packageType: 'hot', numOfGuests }),
+            packageType: 'hot'
+          };
+      
+          fetch('http://localhost:3001/booking', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bookingData),
+          })
+            .then(res => res.json())
+            .then(data => {
+              alert('Bokning sparad!');
+              console.log('Saved booking:', data);
+                // reset all fields
+              setName('');
+              setEmail('');
+              setNumOfGuests(0);
+              setSelectedTimeslot(null);
+            //   setPackageType('varmt');
+        
+            });
+    }
 
     return(
         <div className='booking-form'>
             <h1>Booking Form</h1>
-                <form>
+                <form onSubmit={fromSubmit}>
+
                     <div className='input-group'>
-                        <input type="text" placeholder='Namn' />
-                        <input type="text" placeholder='Email' />
+                        <input type="text" placeholder="Namn" value={name} onChange={(e) => setName(e.target.value)} required />
+                        <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     </div>
                     <span>Varm Behandling</span>
                     <div className='button-group'>
@@ -42,8 +75,10 @@ function BookingForm() {
                     </div>
                     <select 
                         name="nrOfPeople" 
-                        id=""
+                        // id=""
+                        value={numOfGuests}
                         onChange={(e) => setNumOfGuests(Number(e.target.value))}
+                        required
                     >
                         <option value="" disabled selected>Antal Personer</option>
                         <option value="1">1</option>
@@ -52,7 +87,7 @@ function BookingForm() {
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                    <span>Pris: {numOfGuests !== 0 ? (priceCalc({ packageType: "hot", numOfGuests })) + " kr" : ''} </span>
+                    <span>Pris: {numOfGuests !== 0 && packageChoice ? (priceCalc({ packageType: packageChoice, numOfGuests })) + " kr" : ''} </span>
                     <button>Boka</button>
                 </form>
         </div>
