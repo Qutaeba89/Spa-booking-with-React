@@ -8,6 +8,8 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
     const [email, setEmail] = useState('');
     const [numOfGuests, setNumOfGuests] = useState<number>(0);
     const [selectedTimeslot, setSelectedTimeslot] = useState<string | null>(null);
+
+
     const timeslotInfo: { [key: string]: string } = {
         Sunrise: "06:00 - 10:00",
         Day: "12:00 - 16:00",
@@ -26,7 +28,8 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
             timeslot: selectedTimeslot,
             nrOfPeople: numOfGuests,
             totalPrice: priceCalc({ packageType: 'hot', numOfGuests }),
-            packageType: 'hot'
+            packageType: packageChoice,
+            chosenDate: chosenDate ? chosenDate.toISOString() : null
           };
       
           fetch('http://localhost:3001/booking', {
@@ -43,7 +46,6 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
               setEmail('');
               setNumOfGuests(0);
               setSelectedTimeslot(null);
-            //   setPackageType('varmt');
         
             });
     }
@@ -57,7 +59,7 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
                         <input type="text" placeholder="Namn" value={name} onChange={(e) => setName(e.target.value)} required />
                         <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     </div>
-                    <span>Varm Behandling {chosenDate ? chosenDate.toLocaleDateString() : 'Inget datum vald'} </span>
+                    <span>Varm Behandling {chosenDate ? chosenDate.toLocaleDateString() : ''} </span>
                     <div className='button-group'>
                         {['Sunrise', 'Day', 'Sunset'].map((timeslot) =>
                             <div key={timeslot} className='timeslot-container'>
