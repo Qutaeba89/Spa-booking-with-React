@@ -6,6 +6,9 @@ import './App.css';
 
 function App() {
 	const [packageChoice, setPackageChoice] = useState(null);
+	const [chosenDate, setChosenDate] = useState(null);
+
+
 	return(
 		<>
       <header className='header-bar'>
@@ -14,8 +17,8 @@ function App() {
       </header>
 			<div className='calender'>
 				<PackageButtons packageChoice={packageChoice} setPackageChoice={setPackageChoice} />
-				<BookingCalendar packageChoice={packageChoice} />
-				<BookingForm packageChoice={packageChoice} />
+				<BookingCalendar packageChoice={packageChoice} chosenDate={chosenDate} setChosenDate={setChosenDate} />
+				<BookingForm packageChoice={packageChoice} chosenDate={chosenDate} />
 			</div>
 		</>
 	);

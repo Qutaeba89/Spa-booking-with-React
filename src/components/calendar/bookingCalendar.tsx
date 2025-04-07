@@ -3,7 +3,7 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import './bookingCalendar.css'
 
-function BookingCalendar({ packageChoice }: { packageChoice: string | null }) {
+function BookingCalendar({ packageChoice, chosenDate, setChosenDate }: { packageChoice: string | null, chosenDate: Date, setChosenDate }) {
      const [redDays, setRedDays] = useState<string[]>([]);
 
      //Mock-data.
@@ -98,6 +98,7 @@ interface Day {
             minDate={new Date()}
             tileClassName={colorDay}
             tileDisabled={tileDisabling}
+            onChange={setChosenDate}
         />
     </>
    );
