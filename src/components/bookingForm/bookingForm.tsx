@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './bookingForm.css'
 import './animatedButtons.css'
 
-function BookingForm({ packageChoice }: { packageChoice: string | null }) {
+function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | null, chosenDate }) {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -57,7 +57,7 @@ function BookingForm({ packageChoice }: { packageChoice: string | null }) {
                         <input type="text" placeholder="Namn" value={name} onChange={(e) => setName(e.target.value)} required />
                         <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     </div>
-                    <span>Varm Behandling</span>
+                    <span>Varm Behandling {chosenDate ? chosenDate.toLocaleDateString() : 'Inget datum vald'} </span>
                     <div className='button-group'>
                         {['Sunrise', 'Day', 'Sunset'].map((timeslot) =>
                             <div key={timeslot} className='timeslot-container'>
