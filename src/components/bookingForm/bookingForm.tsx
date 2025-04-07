@@ -29,7 +29,7 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
             nrOfPeople: numOfGuests,
             totalPrice: priceCalc({ packageType: 'hot', numOfGuests }),
             packageType: packageChoice,
-            chosenDate: chosenDate ? chosenDate.toISOString() : null
+            bookedDate: chosenDate ? chosenDate.toISOString() : null
           };
       
           fetch('http://localhost:3001/booking', {

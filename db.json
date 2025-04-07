@@ -8,7 +8,7 @@
       "nrOfPeople": 2,
       "totalPrice": 1750,
       "packageType": "hot",
-      "chosenDate": "2025-04-01T00:00:00.000Z"
+      "bookedDate": "2025-04-01T00:00:00.000Z"
     },
     {
       "id": "e0fc",
@@ -18,7 +18,7 @@
       "nrOfPeople": 2,
       "totalPrice": 1750,
       "packageType": "hot",
-      "chosenDate": "2025-04-02T00:00:00.000Z"
+      "bookedDate": "2025-04-02T00:00:00.000Z"
     },
     {
       "id": "febe",
@@ -28,7 +28,7 @@
       "nrOfPeople": 3,
       "totalPrice": 2450,
       "packageType": "hot",
-      "chosenDate": "2025-04-03T00:00:00.000Z"
+      "bookedDate": "2025-04-03T00:00:00.000Z"
     },
     {
       "id": "999d",
@@ -38,7 +38,7 @@
       "nrOfPeople": 2,
       "totalPrice": 1750,
       "packageType": "hot",
-      "chosenDate": "2025-04-04T00:00:00.000Z"
+      "bookedDate": "2025-04-04T00:00:00.000Z"
     },
     {
       "id": "b225",
@@ -48,7 +48,7 @@
       "nrOfPeople": 3,
       "totalPrice": 2450,
       "packageType": "hot",
-      "chosenDate": "2025-04-05T00:00:00.000Z"
+      "bookedDate": "2025-04-05T00:00:00.000Z"
     }
   ]
 }
