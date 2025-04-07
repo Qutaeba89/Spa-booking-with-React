@@ -10,3 +10,11 @@ Currently, two official plugins are available:
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## To Start Json server you need two steps:
+  * Instal: npm install json-server --save-dev
+  * Run server: npm run server
+## Run React:
+  * npm install vite --save-dev
+
+## Importent Start server in windows Terminal and Json in vs code terminal otherwize react and Json does not work in same terminal!!
