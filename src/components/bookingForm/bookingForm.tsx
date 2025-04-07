@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import './bookingForm.css'
 import './animatedButtons.css'
 
-function BookingForm({ packageChoice }: { packageChoice: string | null }) {
+function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | null, chosenDate }) {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [numOfGuests, setNumOfGuests] = useState<number>(0);
     const [selectedTimeslot, setSelectedTimeslot] = useState<string | null>(null);
+
+
     const timeslotInfo: { [key: string]: string } = {
         Sunrise: "06:00 - 10:00",
         Day: "12:00 - 16:00",
@@ -26,7 +28,8 @@ function BookingForm({ packageChoice }: { packageChoice: string | null }) {
             timeslot: selectedTimeslot,
             nrOfPeople: numOfGuests,
             totalPrice: priceCalc({ packageType: 'hot', numOfGuests }),
-            packageType: 'hot'
+            packageType: packageChoice,
+            bookedDate: chosenDate ? chosenDate.toISOString() : null
           };
       
           fetch('http://localhost:3001/booking', {
@@ -43,7 +46,6 @@ function BookingForm({ packageChoice }: { packageChoice: string | null }) {
               setEmail('');
               setNumOfGuests(0);
               setSelectedTimeslot(null);
-            //   setPackageType('varmt');
         
             });
     }
@@ -57,7 +59,7 @@ function BookingForm({ packageChoice }: { packageChoice: string | null }) {
                         <input type="text" placeholder="Namn" value={name} onChange={(e) => setName(e.target.value)} required />
                         <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     </div>
-                    <span>Varm Behandling</span>
+                    <span>Varm Behandling {chosenDate ? chosenDate.toLocaleDateString() : ''} </span>
                     <div className='button-group'>
                         {['Sunrise', 'Day', 'Sunset'].map((timeslot) =>
                             <div key={timeslot} className='timeslot-container'>
