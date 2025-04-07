@@ -17,7 +17,7 @@ const bookings: Day[] = [
     {date: '2025-04-24', availableTimes: 3},
 ];
 
-function BookingCalendar() {
+function BookingCalendar({ packageChoice }: { packageChoice: string | null }) {
 
     function isMonday({ date, view }: { date: Date, view: string}) {
         if(date.getDay() === 1 && view === 'month') {

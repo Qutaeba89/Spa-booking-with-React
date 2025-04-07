@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './bookingForm.css'
 import './animatedButtons.css'
 
-function BookingForm() {
+function BookingForm({ packageChoice }: { packageChoice: string | null }) {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -87,7 +87,7 @@ function BookingForm() {
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                    <span>Pris: {numOfGuests !== 0 ? (priceCalc({ packageType: "hot", numOfGuests })) + " kr" : ''} </span>
+                    <span>Pris: {numOfGuests !== 0 && packageChoice ? (priceCalc({ packageType: packageChoice, numOfGuests })) + " kr" : ''} </span>
                     <button>Boka</button>
                 </form>
         </div>
