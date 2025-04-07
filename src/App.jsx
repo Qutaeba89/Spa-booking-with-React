@@ -16,8 +16,12 @@ function App() {
          <img src='/candle.gif' className='candle'/>
       </header>
 			<div className='calender'>
+				<div className='choice'>
 				<PackageButtons packageChoice={packageChoice} setPackageChoice={setPackageChoice} />
+				</div>
+				<div className='booking'>
 				<BookingCalendar packageChoice={packageChoice} chosenDate={chosenDate} setChosenDate={setChosenDate} />
+				</div>
 				<BookingForm packageChoice={packageChoice} chosenDate={chosenDate} />
 			</div>
 		</>

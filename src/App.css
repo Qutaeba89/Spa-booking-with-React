@@ -31,3 +31,9 @@ body {
     align-items: center;
     min-height: 40vh; /* full page height */
   }
+  .booking {
+    margin-right: 22px;
+  }
+  .choice {
+    margin-right: 50px;
+  }
