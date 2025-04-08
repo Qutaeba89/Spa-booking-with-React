@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { format } from 'date-fns';
 import './bookingForm.css'
 import './animatedButtons.css'
 
@@ -38,7 +39,7 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
             nrOfPeople: numOfGuests,
             totalPrice: priceCalc({ packageType: 'hot', numOfGuests }),
             packageType: packageChoice,
-            bookedDate: chosenDate ? chosenDate.toISOString().split('T')[0] : null
+            bookedDate: chosenDate ? format(chosenDate, 'yyyy-MM-dd') : null
           };
       
           fetch('http://localhost:3001/booking', {
