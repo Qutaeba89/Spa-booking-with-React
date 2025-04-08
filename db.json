@@ -1,4 +1,34 @@
 {
   "booking": [
+    {
+      "id": "42cd",
+      "name": "dfsd",
+      "email": "sdf",
+      "timeslot": "Day",
+      "nrOfPeople": 1,
+      "totalPrice": 1050,
+      "packageType": "hot",
+      "bookedDate": "2025-04-08"
+    },
+    {
+      "id": "da21",
+      "name": "asd",
+      "email": "asd",
+      "timeslot": "Day",
+      "nrOfPeople": 1,
+      "totalPrice": 1050,
+      "packageType": "hot",
+      "bookedDate": "2025-04-11"
+    },
+    {
+      "id": "6086",
+      "name": "asd",
+      "email": "asd",
+      "timeslot": "Day",
+      "nrOfPeople": 4,
+      "totalPrice": 3150,
+      "packageType": "hot",
+      "bookedDate": "2025-04-10"
+    }
   ]
 }
