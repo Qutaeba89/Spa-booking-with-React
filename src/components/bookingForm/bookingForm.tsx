@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
+import { format } from 'date-fns';
 import './bookingForm.css'
 import './animatedButtons.css'
 
-function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | null, chosenDate }) {
+function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | null, chosenDate: Date }) {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [numOfGuests, setNumOfGuests] = useState<number>(0);
+    const [numOfGuests, setNumOfGuests] = useState<number>(1);
     const [selectedTimeslot, setSelectedTimeslot] = useState<string | null>(null);
 
 
@@ -19,8 +20,17 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
     function priceCalc({ packageType, numOfGuests }: { packageType: String, numOfGuests: number}) {
         return (350 + numOfGuests * (packageType == "hot" ? 700 : 500))
     }
+    function getPackageLabel(choice: string | null) {
+        if (choice === 'hot') return 'Varm';
+        if (choice === 'cold') return 'Kall';
+        return '';
+    }
     function fromSubmit(e: React.FormEvent) {
         e.preventDefault();
+        if (!chosenDate || !selectedTimeslot || !packageChoice) {
+            alert("Vänligen fyll i alla fält och välj datum, tid och paket.");
+            return;
+          }
 
         const bookingData = {
             name: name,
@@ -29,7 +39,7 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
             nrOfPeople: numOfGuests,
             totalPrice: priceCalc({ packageType: 'hot', numOfGuests }),
             packageType: packageChoice,
-            bookedDate: chosenDate ? chosenDate.toISOString() : null
+            bookedDate: chosenDate ? format(chosenDate, 'yyyy-MM-dd') : null
           };
       
           fetch('http://localhost:3001/booking', {
@@ -59,7 +69,7 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
                         <input type="text" placeholder="Namn" value={name} onChange={(e) => setName(e.target.value)} required />
                         <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     </div>
-                    <span>Varm Behandling {chosenDate ? chosenDate.toLocaleDateString() : ''} </span>
+                    <span>{getPackageLabel(packageChoice)} Behandling {chosenDate ? chosenDate.toLocaleDateString() : ''} </span>
                     <div className='button-group'>
                         {['Sunrise', 'Day', 'Sunset'].map((timeslot) =>
                             <div key={timeslot} className='timeslot-container'>
@@ -90,7 +100,7 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
-                        <option value="5">5</option>
+                        {/* <option value="5">5</option> */}
                     </select>
                     </div>
                     <span>Pris: {numOfGuests !== 0 && packageChoice ? (priceCalc({ packageType: packageChoice, numOfGuests })) + " kr" : ''} </span>
