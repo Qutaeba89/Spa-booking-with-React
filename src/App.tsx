@@ -53,11 +53,14 @@ function App() {
         </div>
       </header>
 
-      <div className='calender'>
+      <main className='main-container'>
         <PackageButtons packageChoice={packageChoice} setPackageChoice={setPackageChoice} />
-        <BookingCalendar packageChoice={packageChoice} chosenDate={chosenDate} setChosenDate={setChosenDate} bookings={bookings} />
+
+        <div className='booking-section'>
+          <BookingCalendar packageChoice={packageChoice} chosenDate={chosenDate} setChosenDate={setChosenDate} bookings={bookings} />
         <BookingForm packageChoice={packageChoice} chosenDate={chosenDate} onBooked={fetchBookings} />
-      </div>
+        </div>
+      </main>
 
       <footer className='footer'>
         <span className='footer-title'>För frågor eller om Ni vill avboka er tid, vänligen kontakta oss per telefon på 010-155 53 35.</span>

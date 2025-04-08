@@ -96,7 +96,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                         onChange={(e) => setNumOfGuests(Number(e.target.value))}
                         required
                     >
-                        <option value="" disabled selected>Antal Personer</option>
+                        <option value="" disabled hidden>Antal Personer</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -105,7 +105,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                     </select>
                 </div>
                 <span>Pris: {numOfGuests !== 0 && packageChoice ? (priceCalc({ packageType: packageChoice, numOfGuests })) + " kr" : ''} </span>
-                <button>Boka</button>
+                <button className='package-btn-boka'>Boka</button>
             </form>
         </div>
     );
