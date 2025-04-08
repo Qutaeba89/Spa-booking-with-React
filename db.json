@@ -49,6 +49,56 @@
       "totalPrice": 2450,
       "packageType": "hot",
       "bookedDate": "2025-04-05T00:00:00.000Z"
+    },
+    {
+      "id": "7db6",
+      "name": "maja",
+      "email": "maja",
+      "timeslot": "Sunrise",
+      "nrOfPeople": 2,
+      "totalPrice": 1750,
+      "packageType": null,
+      "bookedDate": "2025-04-07T22:00:00.000Z"
+    },
+    {
+      "id": "5d10",
+      "name": "ellen",
+      "email": "ellen",
+      "timeslot": "Day",
+      "nrOfPeople": 0,
+      "totalPrice": 350,
+      "packageType": "hot",
+      "bookedDate": "2025-04-10T22:00:00.000Z"
+    },
+    {
+      "id": "8f50",
+      "name": "tetris",
+      "email": "heja",
+      "timeslot": "Sunset",
+      "nrOfPeople": 3,
+      "totalPrice": 2450,
+      "packageType": "hot",
+      "bookedDate": "2025-04-10T22:00:00.000Z"
+    },
+    {
+      "id": "f9bd",
+      "name": "halloj",
+      "email": "halloj",
+      "timeslot": "Sunrise",
+      "nrOfPeople": 0,
+      "totalPrice": 350,
+      "packageType": "hot",
+      "bookedDate": "2025-04-10T22:00:00.000Z"
+    },
+    {
+      "id": "1b6e",
+      "name": "bla",
+      "email": "bla",
+      "timeslot": "Sunrise",
+      "nrOfPeople": 0,
+      "totalPrice": 350,
+      "packageType": "cold",
+      "bookedDate": "2025-04-15T22:00:00.000Z"
     }
   ]
 }
