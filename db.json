@@ -1,14 +1,5 @@
 {
   "booking": [
     {
-      "id": "da3b",
-      "name": "sdf",
-      "email": "sdf",
-      "timeslot": "Day",
-      "nrOfPeople": 3,
-      "totalPrice": 2450,
-      "packageType": null,
-      "bookedDate": "2025-04-10"
-    }
   ]
 }

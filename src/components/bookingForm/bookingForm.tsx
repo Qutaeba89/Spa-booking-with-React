@@ -7,7 +7,7 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [numOfGuests, setNumOfGuests] = useState<number>(0);
+    const [numOfGuests, setNumOfGuests] = useState<number>(1);
     const [selectedTimeslot, setSelectedTimeslot] = useState<string | null>(null);
 
 
@@ -27,6 +27,10 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
     }
     function fromSubmit(e: React.FormEvent) {
         e.preventDefault();
+        if (!chosenDate || !selectedTimeslot || !packageChoice) {
+            alert("Vänligen fyll i alla fält och välj datum, tid och paket.");
+            return;
+          }
 
         const bookingData = {
             name: name,
@@ -93,7 +97,7 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
-                        <option value="5">5</option>
+                        {/* <option value="5">5</option> */}
                     </select>
                     <span>Pris: {numOfGuests !== 0 && packageChoice ? (priceCalc({ packageType: packageChoice, numOfGuests })) + " kr" : ''} </span>
                     <button>Boka</button>
