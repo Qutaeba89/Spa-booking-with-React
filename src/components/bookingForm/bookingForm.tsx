@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './bookingForm.css'
 import './animatedButtons.css'
 
-function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | null, chosenDate }) {
+function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | null, chosenDate: Date }) {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -19,6 +19,11 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
     function priceCalc({ packageType, numOfGuests }: { packageType: String, numOfGuests: number}) {
         return (350 + numOfGuests * (packageType == "hot" ? 700 : 500))
     }
+    function getPackageLabel(choice: string | null) {
+        if (choice === 'hot') return 'Varm';
+        if (choice === 'cold') return 'Kall';
+        return '';
+    }
     function fromSubmit(e: React.FormEvent) {
         e.preventDefault();
 
@@ -29,7 +34,7 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
             nrOfPeople: numOfGuests,
             totalPrice: priceCalc({ packageType: 'hot', numOfGuests }),
             packageType: packageChoice,
-            bookedDate: chosenDate ? chosenDate.toISOString() : null
+            bookedDate: chosenDate ? chosenDate.toISOString().split('T')[0] : null
           };
       
           fetch('http://localhost:3001/booking', {
@@ -59,7 +64,7 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
                         <input type="text" placeholder="Namn" value={name} onChange={(e) => setName(e.target.value)} required />
                         <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     </div>
-                    <span>Varm Behandling {chosenDate ? chosenDate.toLocaleDateString() : ''} </span>
+                    <span>{getPackageLabel(packageChoice)} Behandling {chosenDate ? chosenDate.toLocaleDateString() : ''} </span>
                     <div className='button-group'>
                         {['Sunrise', 'Day', 'Sunset'].map((timeslot) =>
                             <div key={timeslot} className='timeslot-container'>
