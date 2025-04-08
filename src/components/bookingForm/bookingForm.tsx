@@ -85,9 +85,12 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
                             </div>
                         )}
                     </div>
+                    <div className="select-group">
+                        <label htmlFor="nrOfPeople">Antal Personer:</label>
+                        
                     <select 
                         name="nrOfPeople" 
-                        // id=""
+                        id="nrOfPeople"
                         value={numOfGuests}
                         onChange={(e) => setNumOfGuests(Number(e.target.value))}
                         required
@@ -99,6 +102,7 @@ function BookingForm({ packageChoice, chosenDate }: { packageChoice: string | nu
                         <option value="4">4</option>
                         {/* <option value="5">5</option> */}
                     </select>
+                    </div>
                     <span>Pris: {numOfGuests !== 0 && packageChoice ? (priceCalc({ packageType: packageChoice, numOfGuests })) + " kr" : ''} </span>
                     <button>Boka</button>
                 </form>

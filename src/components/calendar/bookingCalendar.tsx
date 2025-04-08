@@ -6,13 +6,14 @@ import './bookingCalendar.css'
 function BookingCalendar({ packageChoice, chosenDate, setChosenDate }: { packageChoice: string | null, chosenDate: Date, setChosenDate }) {
      const [redDays, setRedDays] = useState<string[]>([]);
 
-     //Mock-data.
-    const bookings: Day[] = [
-        {date: '2025-04-03', availableTimes: 0},
-        {date: '2025-04-10', availableTimes: 1},
-        {date: '2025-04-17', availableTimes: 2},
-        {date: '2025-04-24', availableTimes: 3},
-    ];
+    //  Mock-data.
+    // const bookings: Day[] = [
+    //     {date: '2025-04-03', availableTimes: 0},
+    //     {date: '2025-04-10', availableTimes: 1},
+    //     {date: '2025-04-17', availableTimes: 2},
+    //     {date: '2025-04-24', availableTimes: 3},
+    // ];
+
     
     
      function isRedDay() {
@@ -40,17 +41,46 @@ function BookingCalendar({ packageChoice, chosenDate, setChosenDate }: { package
         
     }, []);
     }
+    const [bookings, setBookings] = useState<Day[]>([]);
+
+useEffect(() => {
+  const fetchBookings = async () => {
+    try {
+      const res = await fetch("http://localhost:3001/booking");
+      const data = await res.json();
+
+      const grouped: { [key: string]: number } = {};
+      data.forEach((booking: any) => {
+        const date = booking.bookedDate.split("T")[0];
+        grouped[date] = (grouped[date] || 0) + 1;
+      });
+
+      const formattedBookings = Object.entries(grouped).map(([date, count]) => ({
+        date,
+        availableTimes: 3 - count, // 3 slots per dag
+      }));
+
+      setBookings(formattedBookings);
+    } catch (err) {
+      console.error("Kunde inte hämta bokningar:", err);
+    }
+  };
+
+  fetchBookings();
+}, []);
+
+    function checkDay(date: Date, redDays: string[]) {
+        const dateToString = date.toLocaleDateString("sv-SE");
+        const isMonday = date.getDay() === 1;
+        const isHoliday = redDays.includes(dateToString);
+        return isMonday || isHoliday;
+      }
     
 
  function tileDisabling({ date, view }: { date: Date, view: string }) {
-        const dateToString = date.toLocaleDateString("sv-SE");
-
         if (view === "month") {
-            const isMonday = date.getDay() === 1; 
-            // const isWeekend = date.getDay() === 0 || date.getDay() === 6;
-            const isHoliday = redDays.includes(dateToString);
-
-            return isMonday || isHoliday; 
+           
+            return checkDay(date, redDays);
         }
         return false;
        
@@ -63,30 +93,25 @@ interface Day {
 }
 
     function colorDay({ date, view }: { date: Date, view: string }) {
+        if (view !== "month" || checkDay(date, redDays)) return;
 
-        if (view != 'month') {
-            return;
-        }
+      
 
-        let dateString = date.toISOString().split('T')[0];
-        let booking!: Day;
+        const dateString = date.toISOString().split('T')[0];
+       
+        const booking = bookings.find(b => b.date === dateString);
 
-        for (let i = 0; i < bookings.length; i++) {
-            if (bookings[i].date === dateString) {
-                booking = bookings[i];
-                break;
-            }
-        }
 
-        if (!booking) {
+
+        if (!booking) 
             return 'greenDay';
-        }
-        if (booking.availableTimes === 0) {
+        
+        if (booking.availableTimes === 0) 
             return 'redDay';
-        }
-        if (booking.availableTimes < 3) {
+        
+        if (booking.availableTimes < 3) 
             return 'yellowDay';
-        }
+        
         return 'greenDay';
     }
 
