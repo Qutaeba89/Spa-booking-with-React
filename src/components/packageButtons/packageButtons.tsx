@@ -2,12 +2,17 @@ import React from 'react';
 
 function PackageButtons({ packageChoice, setPackageChoice }) {
   return (
-    <div>
-      <button onClick={() => setPackageChoice('hot')} style={{ backgroundColor: packageChoice === 'hot' ? 'orange' : 'white' }}>
-        Hot
+    <div className="package-buttons">
+      <button className={`package-btn hot-btn ${packageChoice === 'hot' ? 'selected' : ''}`}
+        onClick={() => setPackageChoice('hot')}
+      >
+        🔥 Varm
       </button>
-      <button onClick={() => setPackageChoice('cold')} style={{ backgroundColor: packageChoice === 'cold' ? 'blue' : 'white' }}>
-        Cold
+      <button
+        className={`package-btn cold-btn ${packageChoice === 'cold' ? 'selected' : ''}`}
+        onClick={() => setPackageChoice('cold')}
+      >
+        ❄️ Kall
       </button>
     </div>
   );
