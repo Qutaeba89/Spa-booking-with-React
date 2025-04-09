@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { format } from 'date-fns';
 import './bookingForm.css'
 import './animatedButtons.css'
@@ -10,6 +10,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
     const [email, setEmail] = useState('');
     const [numOfGuests, setNumOfGuests] = useState<number>(1);
     const [selectedTimeslot, setSelectedTimeslot] = useState<string | null>(null);
+    const [bookedTimeslots, setBookedTimeslots] = useState<string[]>([]);
 
 
     const timeslotInfo: { [key: string]: string } = {
@@ -17,6 +18,19 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
         Day: "12:00 - 16:00",
         Sunset: "18:00 - 22:00"
     };
+
+    useEffect(() => {
+        if (chosenDate) {
+            const formattedDate = format(chosenDate, 'yyyy-MM-dd');
+            fetch(`http://localhost:3001/booking?date=${formattedDate}`)
+                .then(result => result.json())
+                .then(data => {
+                    const bookedSlots = data.map((booking: {timeslot: string}) => booking.timeslot)
+                    setBookedTimeslots(bookedSlots)
+                })
+                .catch(err => console.error('error when fetching bookings: ', err));
+        }
+    }, [chosenDate])
 
     function priceCalc({ packageType, numOfGuests }: { packageType: String, numOfGuests: number }) {
         return (350 + numOfGuests * (packageType == "hot" ? 700 : 500))
@@ -79,6 +93,8 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                                 type='button'
                                 className={selectedTimeslot === timeslot ? 'selected' : ''}
                                 onClick={() => setSelectedTimeslot(timeslot)}
+                                disabled={bookedTimeslots.includes(timeslot)}
+                                style={bookedTimeslots.includes(timeslot) ? { backgroundColor: 'grey', cursor: 'not-allowed' } : {}}
                             >
                                 <span>{timeslot}</span>
                                 <span className='timeslot-info'>{timeslotInfo[timeslot]}</span>
