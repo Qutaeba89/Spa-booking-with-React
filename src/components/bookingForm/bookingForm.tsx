@@ -10,6 +10,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
     const [email, setEmail] = useState('');
     const [numOfGuests, setNumOfGuests] = useState<number>(1);
     const [selectedTimeslot, setSelectedTimeslot] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
 
 
     const timeslotInfo: { [key: string]: string } = {
@@ -43,6 +44,8 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
             bookedDate: chosenDate ? format(chosenDate, 'yyyy-MM-dd') : null
         };
 
+        setLoading(true);
+
         fetch('http://localhost:3001/booking', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -58,7 +61,11 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                 setNumOfGuests(0);
                 setSelectedTimeslot(null);
                 onBooked();
-            });
+            })
+            .catch(err => {
+                alert("Något gick fel!")
+            })
+            .finally(() => setLoading(false));
     }
 
     return (
@@ -105,8 +112,9 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                     </select>
                 </div>
                 <span>Pris: {numOfGuests !== 0 && packageChoice ? (priceCalc({ packageType: packageChoice, numOfGuests })) + " kr" : ''} </span>
-                <button className='package-btn-boka'>Boka</button>
-            </form>
+                <button className='package-btn-boka' type='submit' disabled={loading}>
+                        {loading ? <span className="spinner"></span> : 'Boka'}
+                </button>            </form>
         </div>
     );
 }
