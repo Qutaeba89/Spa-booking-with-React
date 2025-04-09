@@ -65,7 +65,7 @@ function App() {
       <header className='header-bar'>
         <div className='header-content'>
           <span className='header-title'>Spa med Spa</span>
-          <img src='/candle.gif' className='candle' />
+          <img src='/candle.gif' className='candle' alt="img" />
         </div>
       </header>
 

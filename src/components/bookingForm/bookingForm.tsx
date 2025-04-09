@@ -15,6 +15,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
     const [email, setEmail] = useState('');
     const [numOfGuests, setNumOfGuests] = useState<number>(1);
     const [selectedTimeslot, setSelectedTimeslot] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
 
     //Objekt som kopplar behandlingarna till olika tider.
     const timeslotInfo: { [key: string]: string } = {
@@ -40,6 +41,11 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
 
         //Förhindrar att sidan laddas om.
         e.preventDefault();
+
+        if (!email.includes("@") || email.length < 5) {
+            alert("Ange en giltig e-postadress.");
+            return;
+        }
         if (!chosenDate || !selectedTimeslot || !packageChoice) {
             alert("Vänligen fyll i alla fält och välj datum, tid och paket.");
             return;
@@ -54,7 +60,9 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
             totalPrice: priceCalc({ packageType: 'hot', numOfGuests }),
             packageType: packageChoice,
             bookedDate: chosenDate ? format(chosenDate, 'yyyy-MM-dd') : null
-        };
+        }; 
+
+        setLoading(true);
 
         //Skickar en bokning till databasen ('POST') och återställer formuläret.
         fetch('http://localhost:3001/booking', {
@@ -72,7 +80,11 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                 setNumOfGuests(0);
                 setSelectedTimeslot(null);
                 onBooked();
-            });
+            })
+            .catch(err => {
+                alert("Något gick fel!")
+            })
+            .finally(() => setLoading(false));
     }
 
     //Rendering av bokningsformuläret.
@@ -130,9 +142,11 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                 
                 {/* Visar priset. */}
                 <span>Pris: {numOfGuests !== 0 && packageChoice ? (priceCalc({ packageType: packageChoice, numOfGuests })) + " kr" : ''} </span>
-                
+
                 {/* Submit-knapp som skickar bokningsformuläret (om allting är ifyllt). */}
-                <button className='package-btn-boka'>Boka</button>
+                <button className='package-btn-boka' type='submit' disabled={loading}>
+                        {loading ? <span className="spinner"></span> : 'Boka'}
+                </button>            
             </form>
         </div>
     );
