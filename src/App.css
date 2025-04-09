@@ -1,64 +1,136 @@
-.header-bar {
-    background-color: gray;
-    width: 100%;
-    padding: 10px;
-    text-align: center;
-    border-bottom: 3px;
+.app {
+	font-family: Arial, sans-serif;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background: #f7f7f7;
 }
 
-.header-title {
-    position: relative;
-    color: black;
-    font-size: 150%;
+.header-bar {
+	background-color: #ffe0b2;
+	padding: 1rem 0;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .header-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+.header-title {
+	font-size: 2rem;
+	font-weight: bold;
+	color: #333;
 }
 
 .candle {
-    height: auto;
-    width: 70px;
-    height: auto;
+	width: 40px;
+	height: 40px;
 }
 
-body {
-    height: 100%;
-    background-image: url('/background.png');
-    background-size: cover;
-    background-position: center;
+.main-container {
+	flex: 1;
+	padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2rem;
 }
 
-.calender {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 40vh; /* full page height */
+.booking-section {
+	display: flex;
+	flex-direction: row;
+	gap: 3rem;
+	justify-content: center;
+	flex-wrap: wrap;
+	width: 100%;
+	max-width: 1200px;
+}
+
+.footer {
+	text-align: center;
+	padding: 1rem 0;
+	background-color: #e0e0e0;
+	color: #333;
+	font-size: 0.9rem;
+	margin-top: auto;
+}
+
+.package-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 1.5rem;
+	margin-top: 1rem;
+	flex-wrap: wrap;
+}
+
+.package-btn {
+	font-size: 1.2rem;
+	padding: 0.75rem 2rem;
+	border: none;
+	border-radius: 30px;
+	cursor: pointer;
+	font-weight: 600;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.package-btn-boka {
+  font-size: 1.2rem;
+	padding: 0.75rem 2rem;
+	border: none;
+	border-radius: 30px;
+	cursor: pointer;
+	font-weight: 600;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	background: linear-gradient(45deg, #ff7043, #ffab91);
+}
+.package-btn-boka:hover {
+	transform: scale(1.05);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+.hot-btn {
+	background: linear-gradient(45deg, #ff7043, #ffab91);
+	color: white;
+}
+
+.cold-btn {
+	background: linear-gradient(45deg, #4fc3f7, #81d4fa);
+	color: white;
+}
+
+.package-btn:hover {
+	transform: scale(1.05);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.package-btn.selected {
+	outline: 3px solid #555;
+}
+.input-group {
+  display: flex;
+  gap: 1rem;
+}
+.select-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.spinner {
+	width: 18px;
+	height: 18px;
+	border: 2px solid #ddd;
+	border-top: 2px solid #333;
+	border-radius: 50%;
+	animation: spin 0.7s linear infinite;
+	display: inline-block;
+	vertical-align: middle;
   }
-
-
-  .footer {
-    background-color: gray;
-    width: 100%;
-    padding: 15px;
-    text-align: center;
-    margin-top: auto;
-  }
-
-  .footer-title {
-    position: relative;
-    color: black;
-    font-size: 100%;
-  }
-
-  .app {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
   
+  @keyframes spin {
+	to {
+	  transform: rotate(360deg);
+	}
+  }

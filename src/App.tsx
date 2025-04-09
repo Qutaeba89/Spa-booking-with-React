@@ -7,6 +7,7 @@ import './App.css';
 export interface Day {
   date: string;
   availableTimes: number;
+  packageType: 'hot' | 'cold';
 }
 
 function App() {
@@ -24,13 +25,19 @@ function App() {
       const grouped: { [key: string]: number } = {};
       data.forEach((booking: any) => {
         const date = booking.bookedDate;
-        grouped[date] = (grouped[date] || 0) + 1;
+        const key = `${date}|${booking.packageType}`;
+        grouped[key] = (grouped[key] || 0) + 1;
+        
       });
 
-      const formattedBookings = Object.entries(grouped).map(([date, count]) => ({
-        date,
-        availableTimes: 3 - count, // 3 slots per dag
-      }));
+      const formattedBookings = Object.entries(grouped).map(([key, count]) => {
+        const [date, packageType] = key.split('|') as [string, 'hot' | 'cold'];
+        return {
+          date,
+          availableTimes: 3 - count,
+          packageType,
+        };
+      });
 
       setBookings(formattedBookings);
     } catch (err) {
@@ -53,11 +60,14 @@ function App() {
         </div>
       </header>
 
-      <div className='calender'>
+      <main className='main-container'>
         <PackageButtons packageChoice={packageChoice} setPackageChoice={setPackageChoice} />
-        <BookingCalendar packageChoice={packageChoice} chosenDate={chosenDate} setChosenDate={setChosenDate} bookings={bookings} />
+
+        <div className='booking-section'>
+          <BookingCalendar packageChoice={packageChoice} chosenDate={chosenDate} setChosenDate={setChosenDate} bookings={bookings} />
         <BookingForm packageChoice={packageChoice} chosenDate={chosenDate} onBooked={fetchBookings} />
-      </div>
+        </div>
+      </main>
 
       <footer className='footer'>
         <span className='footer-title'>För frågor eller om Ni vill avboka er tid, vänligen kontakta oss per telefon på 010-155 53 35.</span>

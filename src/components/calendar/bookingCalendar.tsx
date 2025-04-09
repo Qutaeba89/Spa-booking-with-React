@@ -8,7 +8,7 @@ import { Day } from '../../App';
 function BookingCalendar({ packageChoice, chosenDate, setChosenDate, bookings }: { packageChoice: string | null, chosenDate?: Date, setChosenDate, bookings: Day[] }) {
   const [redDays, setRedDays] = useState<string[]>([]);
 
-  function isRedDay() {
+  //function isRedDay() {
     useEffect(() => {
       const redDaysFromApi = async () => {
         try {
@@ -31,7 +31,7 @@ function BookingCalendar({ packageChoice, chosenDate, setChosenDate, bookings }:
       redDaysFromApi();
 
     }, []);
-  }
+  //}
 
   //Interface för en dag.
   
@@ -62,8 +62,9 @@ function BookingCalendar({ packageChoice, chosenDate, setChosenDate, bookings }:
     const dateString = format(date, 'yyyy-MM-dd')
     
 
-    const booking = bookings.find(b => b.date === dateString);
-
+    const booking = bookings.find(
+      b => b.date === dateString && b.packageType === packageChoice
+    );    
 
 
     if (!booking)
@@ -78,7 +79,7 @@ function BookingCalendar({ packageChoice, chosenDate, setChosenDate, bookings }:
     return 'greenDay';
   }
 
-  isRedDay();
+  //isRedDay();
 
   return (
     <>
