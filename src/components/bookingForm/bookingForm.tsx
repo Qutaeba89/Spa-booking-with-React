@@ -29,6 +29,11 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
     }
     function fromSubmit(e: React.FormEvent) {
         e.preventDefault();
+
+        if (!email.includes("@") || email.length < 5) {
+            alert("Ange en giltig e-postadress.");
+            return;
+        }
         if (!chosenDate || !selectedTimeslot || !packageChoice) {
             alert("Vänligen fyll i alla fält och välj datum, tid och paket.");
             return;
