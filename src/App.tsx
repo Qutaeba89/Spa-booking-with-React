@@ -7,6 +7,7 @@ import './App.css';
 export interface Day {
   date: string;
   availableTimes: number;
+  packageType: 'hot' | 'cold';
 }
 
 function App() {
@@ -24,13 +25,19 @@ function App() {
       const grouped: { [key: string]: number } = {};
       data.forEach((booking: any) => {
         const date = booking.bookedDate;
-        grouped[date] = (grouped[date] || 0) + 1;
+        const key = `${date}|${booking.packageType}`;
+        grouped[key] = (grouped[key] || 0) + 1;
+        
       });
 
-      const formattedBookings = Object.entries(grouped).map(([date, count]) => ({
-        date,
-        availableTimes: 3 - count, // 3 slots per dag
-      }));
+      const formattedBookings = Object.entries(grouped).map(([key, count]) => {
+        const [date, packageType] = key.split('|') as [string, 'hot' | 'cold'];
+        return {
+          date,
+          availableTimes: 3 - count,
+          packageType,
+        };
+      });
 
       setBookings(formattedBookings);
     } catch (err) {
