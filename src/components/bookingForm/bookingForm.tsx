@@ -169,7 +169,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                     Childreen: <strong>Test</strong> <br />
                     Paket: <strong>{packageChoice}</strong> <br />
                     Antal personer: <strong>{numOfGuests}</strong> <br />
-                    Discount: <strong>Tisdags Rabbat 15% </strong> <br />
+                    Rabbat: <strong>Tisdags Rabbat 15% </strong> <br />
                     Totalt pris: <strong>{priceCalc({ packageType: packageChoice, numOfGuests })} kr - discount</strong>
                 </span>
                 )}
