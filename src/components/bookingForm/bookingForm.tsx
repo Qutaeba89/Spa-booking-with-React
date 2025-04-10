@@ -217,7 +217,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                             Children: <strong>{numOfKids}</strong> <br />
                             Paket: <strong>{packageChoice}</strong> <br />
                             Antal personer: <strong>{numOfAdults}</strong> <br />
-                            <span>Rabbat: <strong>{Math.round(discount)} kr </strong></span>  <br />
+                            <span>Rabbat: <strong> - {Math.round(discount)} kr </strong></span>  <br />
                             Totalt pris: <strong>{total} kr</strong>
                         </span>
                     );
