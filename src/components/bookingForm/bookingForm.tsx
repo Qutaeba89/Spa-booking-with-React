@@ -4,8 +4,13 @@ import './bookingForm.css'
 import './animatedButtons.css'
 import { Day } from '../../App';
 
+//Komponent för bokningsformuläret. Inparametrar:
+// - packageChoice: vald behandling ('hot', 'cold' eller 'null').
+// - chosenDate: valt datum (Date-objekt eller undefined).
+// - onBooked: funktion som uppdaterar kalendern efter en bokning. 
 function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: string | null, chosenDate?: Date, onBooked: () => void }) {
 
+    //Variabler som lagras i en bokning.
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [numOfGuests, setNumOfGuests] = useState<number>(1);
@@ -13,13 +18,15 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
     const [bookedTimeslots, setBookedTimeslots] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
 
-
+    //Objekt som kopplar behandlingarna till olika tider.
     const timeslotInfo: { [key: string]: string } = {
         Sunrise: "06:00 - 10:00",
         Day: "12:00 - 16:00",
         Sunset: "18:00 - 22:00"
     };
 
+
+    //Funktion som beräknar priset för en bokning.
     useEffect(() => {
         if (chosenDate) {
             const formattedDate = format(chosenDate, 'yyyy-MM-dd');
@@ -35,15 +42,22 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
         }
     }, [chosenDate, packageChoice])
 
+
     function priceCalc({ packageType, numOfGuests }: { packageType: String, numOfGuests: number }) {
         return (350 + numOfGuests * (packageType == "hot" ? 700 : 500))
     }
+
+    //Funktion som returnerar svenska strängar beroende på behandling.
     function getPackageLabel(choice: string | null) {
         if (choice === 'hot') return 'Varm';
         if (choice === 'cold') return 'Kall';
         return '';
     }
+
+    //Funktion som hanterar datan som skickas i bokningsformuläret. Tar in ett event-objekt. 
     function fromSubmit(e: React.FormEvent) {
+
+        //Förhindrar att sidan laddas om.
         e.preventDefault();
 
         if (!email.includes("@") || email.length < 5) {
@@ -55,6 +69,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
             return;
         }
 
+        //Objekt som skickas till databasen. Innehåller information om bokningen.
         const bookingData = {
             name: name,
             email: email,
@@ -63,10 +78,11 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
             totalPrice: priceCalc({ packageType: 'hot', numOfGuests }),
             packageType: packageChoice,
             bookedDate: chosenDate ? format(chosenDate, 'yyyy-MM-dd') : null
-        };
+        }; 
 
         setLoading(true);
 
+        //Skickar en bokning till databasen ('POST') och återställer formuläret.
         fetch('http://localhost:3001/booking', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -76,7 +92,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
             .then(data => {
                 alert('Bokning sparad!');
                 console.log('Saved booking:', data);
-                // reset all fields
+                //Återställning av bokningsfälten.
                 setName('');
                 setEmail('');
                 setNumOfGuests(0);
@@ -91,16 +107,25 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
             .finally(() => setLoading(false));
     }
 
+    //Rendering av bokningsformuläret.
     return (
         <div className='booking-form'>
+
             <h1>Booking Form</h1>
+
+            {/* Formulär som kallar på fromSubmit vid bokning. */}
             <form onSubmit={fromSubmit}>
 
+                {/* Inputfät för namn och epost. */}
                 <div className='input-group'>
                     <input type="text" placeholder="Namn" value={name} onChange={(e) => setName(e.target.value)} required />
                     <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
-                <span>{getPackageLabel(packageChoice)} Behandling {chosenDate ? chosenDate.toLocaleDateString() : ''} </span>
+
+                {/* Visar behandling och datum. */}
+                <span>{getPackageLabel(packageChoice)} behandling, {chosenDate ? chosenDate.toLocaleDateString() : ''} </span>
+
+                {/* Visar knappar för att välja en tid. Uppdaterar state för en markerad tid. */}
                 <div className='button-group'>
                     {['Sunrise', 'Day', 'Sunset'].map((timeslot) =>
                         <div key={timeslot} className='timeslot-container'>
@@ -118,9 +143,10 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                         </div>
                     )}
                 </div>
+                
+                {/* Dropdown för att välja antalet personer i bokningen. */}
                 <div className="select-group">
                     <label htmlFor="nrOfPeople">Antal Personer:</label>
-
                     <select
                         name="nrOfPeople"
                         id="nrOfPeople"
@@ -133,17 +159,19 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
-                        {/* <option value="5">5</option> */}
                     </select>
                 </div>
+                
+                {/* Visar priset. */}
                 <span>Pris: {numOfGuests !== 0 && packageChoice ? (priceCalc({ packageType: packageChoice, numOfGuests })) + " kr" : ''} </span>
+
+                {/* Submit-knapp som skickar bokningsformuläret (om allting är ifyllt). */}
                 <button className='package-btn-boka' type='submit' disabled={loading}>
                         {loading ? <span className="spinner"></span> : 'Boka'}
-                </button>            </form>
+                </button>            
+            </form>
         </div>
     );
 }
-
-
 
 export default BookingForm;

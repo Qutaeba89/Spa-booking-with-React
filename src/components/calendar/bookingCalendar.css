@@ -1,18 +1,18 @@
-.greenDay {
+.green-day {
     background-color: green;
     border: 1px solid black !important; 
     border-radius: 6px;
     
   }
   
-  .yellowDay {
+  .yellow-day {
     background-color: yellow;
     border: 1px solid black !important; 
     border-radius: 6px;
     border: 1px solid;
   }
   
-  .redDay {
+  .red-day {
     background-color: red;
     border: 1px solid black !important; 
     border-radius: 6px;
