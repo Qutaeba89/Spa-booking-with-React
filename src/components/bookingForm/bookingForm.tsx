@@ -13,7 +13,8 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
     //Variabler som lagras i en bokning.
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [numOfGuests, setNumOfGuests] = useState<number>(1);
+    const [numOfAdults, setNumOfAdults] = useState<number>(1);
+    const [numOfKids, setNumOfKids] = useState<number>(0);
     const [selectedTimeslot, setSelectedTimeslot] = useState<string | null>(null);
     const [bookedTimeslots, setBookedTimeslots] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
@@ -43,6 +44,8 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
     }, [chosenDate, packageChoice])
 
 
+
+
     function priceCalc({ packageType, numOfAdults, numOfKids }: { packageType: String, numOfAdults: number, numOfKids: number }) {
 
         const price = 350 + numOfAdults * (packageType == "hot" ? 700 : 500) + numOfKids * (packageType == "hot" ? 700 : 500) * 0.5;
@@ -52,7 +55,9 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
             console.log("Tisdagsrabatt");
         }
         return price;
+
     }
+
 
     //Funktion som returnerar svenska strängar beroende på behandling.
     function getPackageLabel(choice: string | null) {
@@ -81,11 +86,14 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
             name: name,
             email: email,
             timeslot: selectedTimeslot,
-            nrOfPeople: numOfGuests,
-            totalPrice: priceCalc({ packageType: 'hot', numOfGuests }),
+            nrOfAdults: numOfAdults,
+            nrOfKids: numOfKids,
+            totalPrice: priceCalc({ packageType: packageChoice, numOfAdults, numOfKids }),
             packageType: packageChoice,
             bookedDate: chosenDate ? format(chosenDate, 'yyyy-MM-dd') : null
-        }; 
+            
+        };
+
 
         setLoading(true);
 
@@ -102,8 +110,8 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                 //Återställning av bokningsfälten.
                 setName('');
                 setEmail('');
-                setNumOfGuests(0);
-                setSelectedTimeslot(null);
+                setNumOfAdults(1);
+                setNumOfKids(0);
             })
             .then(() => {
                 onBooked();
@@ -153,34 +161,50 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                 
                 {/* Dropdown för att välja antalet personer i bokningen. */}
                 <div className="select-group">
-                    <label htmlFor="nrOfPeople">Antal Personer:</label>
+                    <label htmlFor="numOfAdult">Antal vuxna:</label>
                     <select
-                        name="nrOfPeople"
-                        id="nrOfPeople"
-                        value={numOfGuests}
-                        onChange={(e) => setNumOfGuests(Number(e.target.value))}
+                        name="numOfAdult"
+                        id="numOfAdult"
+                        value={numOfAdults}
+                        onChange={(e) => setNumOfAdults(Number(e.target.value))}
                         required
                     >
-                        <option value="" disabled hidden>Antal Personer</option>
+                        <option value="" disabled hidden>Antal Vuxna</option>
                         <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
+                        <option value="2"disabled={numOfKids === 3|| numOfKids === 4 ? true : false}>2</option>
+                        <option value="3"disabled={numOfKids === 2 || numOfKids === 3 ? true : false}>3</option>
+                        <option value="4"disabled={numOfKids === 1 || numOfKids === 2 || numOfKids === 3  ? true : false}>4</option>
                     </select>
                 </div>
+                <div className="select-group">
+                    <label htmlFor="numOfKids">Antal barn under 12 år:</label>
+                    <select
+                        name="numOfKids"
+                        id="numOfKids"
+                        value={numOfKids}
+                        onChange={(e) => setNumOfKids(Number(e.target.value))}
+                        required
+                    >
+                        <option value="0">0</option>
+                        <option value="1"disabled={numOfAdults === 4 ? true : false}>1</option>
+                        <option value="2"disabled={numOfAdults === 3 || numOfAdults === 4  ? true : false}>2</option>
+                        <option value="3"disabled={numOfAdults === 2 || numOfAdults === 3 || numOfAdults === 4  ? true : false}>3</option>
+                        
+                    </select>
+                </div>
+
                 
                 {/* Visar priset. */}
                 <span>Pris: {numOfGuests !== 0 && packageChoice ? (priceCalc({ packageType: packageChoice, numOfGuests })) + " kr" : ''} </span>
                 {numOfGuests !== 0 && packageChoice && (
                 <span>
-                    Childreen: <strong>Test</strong> <br />
+                    Children: <strong>Test</strong> <br />
                     Paket: <strong>{packageChoice}</strong> <br />
                     Antal personer: <strong>{numOfGuests}</strong> <br />
-                    Discount: <strong>Tisdags Rabbat 15% </strong> <br />
-                    Totalt pris: <strong>{priceCalc({ packageType: packageChoice, numOfGuests })} kr - discount</strong>
+                    Discount: <strong>Tisdags Rabatt 15% </strong> <br />
+                    Totalt pris: <strong>{priceCalc({ packageType: packageChoice, numOfGuests })} kr</strong>
                 </span>
                 )}
-
 
                 {/* Submit-knapp som skickar bokningsformuläret (om allting är ifyllt). */}
                 <button className='package-btn-boka' type='submit' disabled={loading}>
