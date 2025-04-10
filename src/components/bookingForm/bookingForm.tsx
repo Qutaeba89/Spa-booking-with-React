@@ -61,8 +61,8 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
 
     //Funktion som returnerar svenska strängar beroende på behandling.
     function getPackageLabel(choice: string | null) {
-        if (choice === 'hot') return 'Varm';
-        if (choice === 'cold') return 'Kall';
+        if (choice === 'Hot') return 'Varm';
+        if (choice === 'Cold') return 'Kall';
         return '';
     }
 
@@ -203,8 +203,8 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                     Children: <strong>Test</strong> <br />
                     Paket: <strong>{packageChoice}</strong> <br />
                     Antal personer: <strong>{numOfGuests}</strong> <br />
-                    Discount: <strong>Tisdags Rabatt 15% </strong> <br />
-                    Totalt pris: <strong>{priceCalc({ packageType: packageChoice, numOfGuests })} kr</strong>
+                    Rabbat: <strong>Tisdags Rabbat 15% </strong> <br />
+                    Totalt pris: <strong>{priceCalc({ packageType: packageChoice, numOfGuests })} kr - discount</strong>
                 </span>
                 )} */}
 
