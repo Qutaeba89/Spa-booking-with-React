@@ -22,7 +22,6 @@ function BookingCalendar({ packageChoice, chosenDate, setChosenDate, bookings }:
               .map((day: any) => day.datum);
 
             setRedDays(redDays);
-            console.log(redDays);
           }
         } catch (error) {
           console.error("Fel vid hämtning av helgdagar:", error);
@@ -61,7 +60,6 @@ function BookingCalendar({ packageChoice, chosenDate, setChosenDate, bookings }:
 
 
     const dateString = format(date, 'yyyy-MM-dd')
-    console.log('dateString: ', dateString)
     
 
     const booking = bookings.find(
