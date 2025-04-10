@@ -35,8 +35,8 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                 .then(result => result.json())
                 .then(data => {
                     setBookedTimeslots(data
-                        .filter((booking: {packageType: string, bookedDate: string}) => booking.packageType === packageChoice && booking.bookedDate === formattedDate)
-                        .map((booking: {timeslot: string}) => booking.timeslot)
+                        .filter((booking: { packageType: string, bookedDate: string }) => booking.packageType === packageChoice && booking.bookedDate === formattedDate)
+                        .map((booking: { timeslot: string }) => booking.timeslot)
                     )
                 })
                 .catch(err => console.error('error when fetching bookings: ', err));
@@ -49,7 +49,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
     function priceCalc({ packageType, numOfAdults, numOfKids }: { packageType: String, numOfAdults: number, numOfKids: number }) {
 
         const price = 350 + numOfAdults * (packageType == "hot" ? 700 : 500) + numOfKids * (packageType == "hot" ? 700 : 500) * 0.5;
-        
+
         if (chosenDate?.getDay() === 2) {
             return price * 0.85;
             console.log("Tisdagsrabatt");
@@ -91,7 +91,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
             totalPrice: priceCalc({ packageType: packageChoice, numOfAdults, numOfKids }),
             packageType: packageChoice,
             bookedDate: chosenDate ? format(chosenDate, 'yyyy-MM-dd') : null
-            
+
         };
 
 
@@ -158,7 +158,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                         </div>
                     )}
                 </div>
-                
+
                 {/* Dropdown för att välja antalet personer i bokningen. */}
                 <div className="select-group">
                     <label htmlFor="numOfAdult">Antal vuxna:</label>
@@ -171,9 +171,9 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                     >
                         <option value="" disabled hidden>Antal Vuxna</option>
                         <option value="1">1</option>
-                        <option value="2"disabled={numOfKids === 3|| numOfKids === 4 ? true : false}>2</option>
-                        <option value="3"disabled={numOfKids === 2 || numOfKids === 3 ? true : false}>3</option>
-                        <option value="4"disabled={numOfKids === 1 || numOfKids === 2 || numOfKids === 3  ? true : false}>4</option>
+                        <option value="2" disabled={numOfKids === 3 || numOfKids === 4 ? true : false}>2</option>
+                        <option value="3" disabled={numOfKids === 2 || numOfKids === 3 ? true : false}>3</option>
+                        <option value="4" disabled={numOfKids === 1 || numOfKids === 2 || numOfKids === 3 ? true : false}>4</option>
                     </select>
                 </div>
                 <div className="select-group">
@@ -186,17 +186,19 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                         required
                     >
                         <option value="0">0</option>
-                        <option value="1"disabled={numOfAdults === 4 ? true : false}>1</option>
-                        <option value="2"disabled={numOfAdults === 3 || numOfAdults === 4  ? true : false}>2</option>
-                        <option value="3"disabled={numOfAdults === 2 || numOfAdults === 3 || numOfAdults === 4  ? true : false}>3</option>
-                        
+                        <option value="1" disabled={numOfAdults === 4 ? true : false}>1</option>
+                        <option value="2" disabled={numOfAdults === 3 || numOfAdults === 4 ? true : false}>2</option>
+                        <option value="3" disabled={numOfAdults === 2 || numOfAdults === 3 || numOfAdults === 4 ? true : false}>3</option>
+
                     </select>
                 </div>
 
-                
+
                 {/* Visar priset. */}
-                <span>Pris: {numOfGuests !== 0 && packageChoice ? (priceCalc({ packageType: packageChoice, numOfGuests })) + " kr" : ''} </span>
-                {numOfGuests !== 0 && packageChoice && (
+                <span>Pris: {packageChoice ? Math.round(priceCalc({ packageType: packageChoice, numOfAdults, numOfKids })) + " kr" : ''}
+
+                </span>
+                {/* {numOfGuests !== 0 && packageChoice && (
                 <span>
                     Children: <strong>Test</strong> <br />
                     Paket: <strong>{packageChoice}</strong> <br />
@@ -204,12 +206,12 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                     Discount: <strong>Tisdags Rabatt 15% </strong> <br />
                     Totalt pris: <strong>{priceCalc({ packageType: packageChoice, numOfGuests })} kr</strong>
                 </span>
-                )}
+                )} */}
 
                 {/* Submit-knapp som skickar bokningsformuläret (om allting är ifyllt). */}
                 <button className='package-btn-boka' type='submit' disabled={loading}>
-                        {loading ? <span className="spinner"></span> : 'Boka'}
-                </button>            
+                    {loading ? <span className="spinner"></span> : 'Boka'}
+                </button>
             </form>
         </div>
     );

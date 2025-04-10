@@ -17,7 +17,6 @@ function PackageButtons({ packageChoice, setPackageChoice }) {
         </button>
       </div>
     </div>
-  </div>
   );
 }
 
