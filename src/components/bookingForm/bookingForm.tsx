@@ -68,6 +68,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
     function getPackageLabel(choice: string | null) {
         if (choice === 'Hot') return 'Varm';
         if (choice === 'Cold') return 'Kall';
+        if (choice === 'relax') return 'Varva ner';
         return '';
     }
 
@@ -147,7 +148,13 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
 
                 {/* Visar knappar för att välja en tid. Uppdaterar state för en markerad tid. */}
                 <div className='button-group'>
-                    {['Sunrise', 'Day', 'Sunset'].map((timeslot) =>
+                {(['Sunrise', 'Day', 'Sunset'].filter((timeslot) => {
+                    if (packageChoice === 'relax') {
+                        const day = chosenDate?.getDay();
+                        return (day === 6 || day === 0) && timeslot !== 'Sunset';
+                    }
+                    return true;
+                    })).map((timeslot) => (
                         <div key={timeslot} className='timeslot-container'>
                             <button
                                 key={timeslot}
@@ -161,7 +168,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                                 <span className='timeslot-info'>{timeslotInfo[timeslot]}</span>
                             </button>
                         </div>
-                    )}
+                    ))}
                 </div>
 
                 {/* Dropdown för att välja antalet personer i bokningen. */}
