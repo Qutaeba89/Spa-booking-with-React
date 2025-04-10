@@ -44,6 +44,10 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
 
 
     function priceCalc({ packageType, numOfGuests }: { packageType: String, numOfGuests: number }) {
+        if (chosenDate?.getDay() === 2) {
+            return (350 + numOfGuests * (packageType == "hot" ? 700 : 500)) * 0.85;
+            console.log("Tisdagsrabatt");
+        }
         return (350 + numOfGuests * (packageType == "hot" ? 700 : 500))
     }
 
