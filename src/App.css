@@ -39,7 +39,7 @@
 	gap: 2rem;
 }
 
-.booking-section {
+/* .booking-section {
 	display: flex;
 	flex-direction: column;
 	gap: 3rem;
@@ -47,7 +47,28 @@
 	flex-wrap: wrap;
 	width: 100%;
 	max-width: 1200px;
-}
+} */
+.booking-layout-wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+	gap: 3rem;
+	flex-wrap: nowrap;
+	width: auto;
+	margin-top: 2rem;
+  }
+  
+  .booking-layout-calendar,
+  .booking-section {
+	flex: 1;
+	max-width: 600px; /* or any size you prefer */
+	
+  }
+  .booking-section {
+	margin-top: -2rem;
+
+  }
 
 .footer {
 	text-align: center;
@@ -134,3 +155,14 @@
 	  transform: rotate(360deg);
 	}
   }
+
+ .blink{
+	  animation: fade-blink 3s infinite;
+	  color: red;
+	  font-weight: bold;
+	  font-size: 1.2em;
+ }
+@keyframes fade-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

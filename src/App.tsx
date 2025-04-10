@@ -70,13 +70,29 @@ function App() {
       </header>
 
       {/* Huvudinnehåll (val av behandling, kalender och bokningsformulär). */}
-      <main className='main-container'>
-        <PackageButtons packageChoice={packageChoice} setPackageChoice={setPackageChoice} />
-        <div className='booking-section'>
-          <BookingCalendar packageChoice={packageChoice} chosenDate={chosenDate} setChosenDate={setChosenDate} bookings={bookings} />
-        <BookingForm packageChoice={packageChoice} chosenDate={chosenDate} onBooked={fetchBookings} />
+          <main className='main-container'>
+            <PackageButtons packageChoice={packageChoice} setPackageChoice={setPackageChoice} />
+
+      <div className='booking-layout-wrapper'>
+        <div className='booking-layout-calendar'>
+          <BookingCalendar 
+            packageChoice={packageChoice} 
+            chosenDate={chosenDate} 
+            setChosenDate={setChosenDate} 
+            bookings={bookings} 
+          />
         </div>
-      </main>
+
+        <div className='booking-section'>
+          <BookingForm 
+            packageChoice={packageChoice} 
+            chosenDate={chosenDate} 
+            onBooked={fetchBookings} 
+          />
+        </div>
+      </div>
+    </main>
+
 
       {/* Footer. */}
       <footer className='footer'>
