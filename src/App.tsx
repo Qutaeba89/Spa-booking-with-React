@@ -89,6 +89,7 @@ function App() {
               packageChoice={packageChoice}
               chosenDate={chosenDate}
               onBooked={fetchBookings}
+              bookings={bookings}
             />
           </div>
         </div>

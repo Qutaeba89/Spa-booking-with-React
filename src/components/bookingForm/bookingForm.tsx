@@ -8,7 +8,7 @@ import { Day } from '../../App';
 // - packageChoice: vald behandling ('hot', 'cold' eller 'null').
 // - chosenDate: valt datum (Date-objekt eller undefined).
 // - onBooked: funktion som uppdaterar kalendern efter en bokning. 
-function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: string | null, chosenDate?: Date, onBooked: () => void }) {
+function BookingForm({ packageChoice, chosenDate, onBooked, bookings }: { packageChoice: string | null, chosenDate?: Date, onBooked: () => void, bookings : Day[] }) {
 
     //Variabler som lagras i en bokning.
     const [name, setName] = useState('');
@@ -41,7 +41,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                 })
                 .catch(err => console.error('error when fetching bookings: ', err));
         }
-    }, [chosenDate, packageChoice])
+    }, [chosenDate, packageChoice, bookings])
 
 
 
@@ -215,8 +215,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                         </span>
                     );
                 })()}
-
-
+                
                 {/* Submit-knapp som skickar bokningsformuläret (om allting är ifyllt). */}
                 <button className='package-btn-boka' type='submit' disabled={loading}>
                     {loading ? <span className="spinner"></span> : 'Boka'}
