@@ -43,24 +43,26 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
         }
     }, [chosenDate, packageChoice])
 
-
-
-
     function priceCalc({ packageType, numOfAdults, numOfKids }: { packageType: String, numOfAdults: number, numOfKids: number }) {
+      
+        const isHot = packageType === "hot";
+        const isRelax = packageType === "relax";
 
-        const price = 350 + numOfAdults * (packageType == "Hot" ? 700 : 500) + numOfKids * (packageType == "Hot" ? 700 : 500) * 0.5;
+        const adultPrice = isRelax ? 300 : (isHot ? 700 : 500);
+        const kidPrice = isRelax ? 300 * 0.5 : (isHot ? 700 : 500) * 0.5;
+
         let discount = 0;
 
+        const price = 350 + numOfAdults * adultPrice + numOfKids * kidPrice;
+        
         if (chosenDate?.getDay() === 2) {
             // return price * 0.85;
             // console.log("Tisdagsrabatt");
             discount = price * 0.15;
-
         }
         // return price;
         const total = price - discount;
         return { total, discount };
-
     }
 
 
