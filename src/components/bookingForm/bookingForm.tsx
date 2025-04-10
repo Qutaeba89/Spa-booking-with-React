@@ -195,10 +195,16 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
 
                 
                 {/* Visar priset. */}
-                <span>Pris: {packageChoice ? Math.round(priceCalc({ packageType: packageChoice, numOfAdults, numOfKids })) + " kr" : ''} 
-                    
+                <span>Pris: {numOfGuests !== 0 && packageChoice ? (priceCalc({ packageType: packageChoice, numOfGuests })) + " kr" : ''} </span>
+                {numOfGuests !== 0 && packageChoice && (
+                <span>
+                    Children: <strong>Test</strong> <br />
+                    Paket: <strong>{packageChoice}</strong> <br />
+                    Antal personer: <strong>{numOfGuests}</strong> <br />
+                    Discount: <strong>Tisdags Rabatt 15% </strong> <br />
+                    Totalt pris: <strong>{priceCalc({ packageType: packageChoice, numOfGuests })} kr</strong>
                 </span>
-                
+                )}
 
                 {/* Submit-knapp som skickar bokningsformuläret (om allting är ifyllt). */}
                 <button className='package-btn-boka' type='submit' disabled={loading}>
