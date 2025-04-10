@@ -39,6 +39,7 @@ function BookingCalendar({ packageChoice, chosenDate, setChosenDate, bookings }:
             setRedDays(redDays);
 
             console.log(redDays);
+
           }
         } catch (error) {
           console.error("Fel vid hämtning av helgdagar:", error);
@@ -86,7 +87,7 @@ function BookingCalendar({ packageChoice, chosenDate, setChosenDate, bookings }:
     const dateString = format(date, 'yyyy-MM-dd')
 
     console.log('dateString: ', dateString)
-    
+
     //Hittar bokningar som matchar både datum och behandling.
     const booking = bookings.find(
       b => b.date === dateString && b.packageType === packageChoice

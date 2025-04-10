@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { format } from 'date-fns';
 import './bookingForm.css'
 import './animatedButtons.css'
@@ -15,6 +15,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
     const [email, setEmail] = useState('');
     const [numOfGuests, setNumOfGuests] = useState<number>(1);
     const [selectedTimeslot, setSelectedTimeslot] = useState<string | null>(null);
+    const [bookedTimeslots, setBookedTimeslots] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
 
     //Objekt som kopplar behandlingarna till olika tider.
@@ -24,7 +25,24 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
         Sunset: "18:00 - 22:00"
     };
 
+
     //Funktion som beräknar priset för en bokning.
+    useEffect(() => {
+        if (chosenDate) {
+            const formattedDate = format(chosenDate, 'yyyy-MM-dd');
+            fetch(`http://localhost:3001/booking?date=${formattedDate}`)
+                .then(result => result.json())
+                .then(data => {
+                    setBookedTimeslots(data
+                        .filter((booking: {packageType: string, bookedDate: string}) => booking.packageType === packageChoice && booking.bookedDate === formattedDate)
+                        .map((booking: {timeslot: string}) => booking.timeslot)
+                    )
+                })
+                .catch(err => console.error('error when fetching bookings: ', err));
+        }
+    }, [chosenDate, packageChoice])
+
+
     function priceCalc({ packageType, numOfGuests }: { packageType: String, numOfGuests: number }) {
         return (350 + numOfGuests * (packageType == "hot" ? 700 : 500))
     }
@@ -79,6 +97,8 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                 setEmail('');
                 setNumOfGuests(0);
                 setSelectedTimeslot(null);
+            })
+            .then(() => {
                 onBooked();
             })
             .catch(err => {
@@ -112,10 +132,12 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                             <button
                                 key={timeslot}
                                 type='button'
-                                className={selectedTimeslot === timeslot ? 'selected' : ''}
+                                className={bookedTimeslots.includes(timeslot) ? 'booked' : (selectedTimeslot === timeslot ? 'selected' : '')}
                                 onClick={() => setSelectedTimeslot(timeslot)}
+                                disabled={bookedTimeslots.includes(timeslot)}
+                                style={bookedTimeslots.includes(timeslot) ? { backgroundColor: 'grey', cursor: 'not-allowed' } : {}}
                             >
-                                <span>{timeslot}</span>
+                                <span className='timeslot-Name'>{bookedTimeslots.includes(timeslot) ? 'Booked' : timeslot}</span>
                                 <span className='timeslot-info'>{timeslotInfo[timeslot]}</span>
                             </button>
                         </div>
