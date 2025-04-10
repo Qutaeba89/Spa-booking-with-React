@@ -17,6 +17,10 @@ function PackageButtons({ packageChoice, setPackageChoice }) {
       >
         ❄️ Kall
       </button>
+      <button
+        className={packageChoice === 'relax' ? 'selected' : ''}
+        onClick={() => setPackageChoice('relax')}
+></button>
     </div>
     </div>
   );
