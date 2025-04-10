@@ -24,6 +24,8 @@
 
 .react-calendar {
   height: auto;
+  padding: 4px;
+  border-radius: 8px;
 }
 
 .react-calendar__viewContainer,
