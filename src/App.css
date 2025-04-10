@@ -39,15 +39,9 @@
 	gap: 2rem;
 }
 
-/* .booking-section {
-	display: flex;
-	flex-direction: column;
-	gap: 3rem;
-	justify-content: center;
-	flex-wrap: wrap;
-	width: 100%;
-	max-width: 1200px;
-} */
+.booking-section {
+	margin-top: -2.5rem;
+}
 .booking-layout-wrapper {
 	display: flex;
 	flex-direction: row;
