@@ -26,12 +26,14 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
             fetch(`http://localhost:3001/booking?date=${formattedDate}`)
                 .then(result => result.json())
                 .then(data => {
-                    const bookedSlots = data.map((booking: {timeslot: string}) => booking.timeslot)
-                    setBookedTimeslots(bookedSlots)
+                    setBookedTimeslots(data
+                        .filter((booking: {packageType: string, bookedDate: string}) => booking.packageType === packageChoice && booking.bookedDate === formattedDate)
+                        .map((booking: {timeslot: string}) => booking.timeslot)
+                    )
                 })
                 .catch(err => console.error('error when fetching bookings: ', err));
         }
-    }, [chosenDate])
+    }, [chosenDate, packageChoice])
 
     function priceCalc({ packageType, numOfGuests }: { packageType: String, numOfGuests: number }) {
         return (350 + numOfGuests * (packageType == "hot" ? 700 : 500))
@@ -74,6 +76,8 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                 setEmail('');
                 setNumOfGuests(0);
                 setSelectedTimeslot(null);
+            })
+            .then(() => {
                 onBooked();
             })
             .catch(err => {
