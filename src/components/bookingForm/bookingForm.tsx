@@ -45,24 +45,26 @@ function BookingForm({ packageChoice, chosenDate, onBooked, bookings }: { packag
 
     function priceCalc({ packageType, numOfAdults, numOfKids }: { packageType: String, numOfAdults: number, numOfKids: number }) {
       
-        const isHot = packageType === "hot";
-        const isRelax = packageType === "relax";
+        const isHot = packageType === "Hot";
+        const isRelax = packageType === "Relax";
 
         const adultPrice = isRelax ? 300 : (isHot ? 700 : 500);
         const kidPrice = isRelax ? 300 * 0.5 : (isHot ? 700 : 500) * 0.5;
+        const grundAvgift = 350;
 
         let discount = 0;
 
-        const price = 350 + numOfAdults * adultPrice + numOfKids * kidPrice;
-        
+        const price = 350 + numOfAdults * adultPrice + numOfKids * kidPrice;        
         if (chosenDate?.getDay() === 2) {
-            // return price * 0.85;
-            // console.log("Tisdagsrabatt");
             discount = price * 0.15;
         }
         // return price;
         const total = price - discount;
-        return { total, discount };
+        const perKids = kidPrice;
+        const perAdult = adultPrice;
+        const avgift =grundAvgift;
+
+        return { total, discount, perKids ,perAdult,avgift };
     }
 
 
@@ -209,17 +211,22 @@ function BookingForm({ packageChoice, chosenDate, onBooked, bookings }: { packag
 
 
                 {/* Visar priset. */}
-                <span>Pris: {packageChoice ? Math.round(priceCalc({ packageType: packageChoice, numOfAdults, numOfKids }).total) + " kr" : ''}
+                {/* <span>Pris: {packageChoice ? Math.round(priceCalc({ packageType: packageChoice, numOfAdults, numOfKids }).total) + " kr" : ''}
 
-                </span>
+                </span> */}
                 {numOfAdults !== 0 && packageChoice && (() => {
-                    const { total, discount } = priceCalc({ packageType: packageChoice, numOfAdults, numOfKids });
+                    const { total, discount, perKids ,perAdult, avgift  } = priceCalc({ packageType: packageChoice, numOfAdults, numOfKids });
                     return (
                         <span>
-                            Children: <strong>{numOfKids}</strong> <br />
+                            {numOfKids > 0 && (
+                                <>
+                                Barn: <strong>{numOfKids} x {perKids} kr</strong> <br />
+                                </>
+                            )}
                             Paket: <strong>{packageChoice}</strong> <br />
-                            Antal personer: <strong>{numOfAdults}</strong> <br />
+                            Antal vuxna: <strong>{numOfAdults} x {perAdult} kr </strong> <br />
                             <span>Rabbat: <strong>{Math.round( - discount)} kr </strong></span>  <br />
+                            Avgift: <strong>{avgift}</strong> <br />
                             Totalt pris: <strong>{total} kr</strong>
                         </span>
                     );
