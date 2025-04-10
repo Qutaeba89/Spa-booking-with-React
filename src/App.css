@@ -41,7 +41,7 @@
 
 /* .booking-section {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	gap: 3rem;
 	justify-content: center;
 	flex-wrap: wrap;
