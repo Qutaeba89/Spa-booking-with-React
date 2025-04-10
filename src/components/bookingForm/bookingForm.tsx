@@ -49,12 +49,17 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
     function priceCalc({ packageType, numOfAdults, numOfKids }: { packageType: String, numOfAdults: number, numOfKids: number }) {
 
         const price = 350 + numOfAdults * (packageType == "Hot" ? 700 : 500) + numOfKids * (packageType == "Hot" ? 700 : 500) * 0.5;
+        let discount = 0;
 
         if (chosenDate?.getDay() === 2) {
-            return price * 0.85;
-            console.log("Tisdagsrabatt");
+            // return price * 0.85;
+            // console.log("Tisdagsrabatt");
+            discount = price * 0.15;
+
         }
-        return price;
+        // return price;
+        const total = price - discount;
+        return { total, discount };
 
     }
 
@@ -195,18 +200,21 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
 
 
                 {/* Visar priset. */}
-                <span>Pris: {packageChoice ? Math.round(priceCalc({ packageType: packageChoice, numOfAdults, numOfKids })) + " kr" : ''}
+                <span>Pris: {packageChoice ? Math.round(priceCalc({ packageType: packageChoice, numOfAdults, numOfKids }).total) + " kr" : ''}
 
                 </span>
-                {numOfAdults !== 0 && packageChoice && (
-                <span>
-                    Children: <strong>Test</strong> <br />
-                    Paket: <strong>{packageChoice}</strong> <br />
-                    Antal personer: <strong>{numOfAdults}</strong> <br />
-                    Rabbat: <strong>Tisdags Rabbat 15% </strong> <br />
-                    Totalt pris: <strong>{priceCalc({ packageType: packageChoice, numOfAdults, numOfKids })} kr - discount</strong>
-                </span>
-                )}
+                {numOfAdults !== 0 && packageChoice && (() => {
+                    const { total, discount } = priceCalc({ packageType: packageChoice, numOfAdults, numOfKids });
+                    return (
+                        <span>
+                            Children: <strong>{numOfKids}</strong> <br />
+                            Paket: <strong>{packageChoice}</strong> <br />
+                            Antal personer: <strong>{numOfAdults}</strong> <br />
+                            <span>Rabbat: <strong>{Math.round(discount)} kr </strong></span>  <br />
+                            Totalt pris: <strong>{total} kr</strong>
+                        </span>
+                    );
+                })()}
 
 
                 {/* Submit-knapp som skickar bokningsformuläret (om allting är ifyllt). */}
