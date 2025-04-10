@@ -8,7 +8,7 @@ import './App.css';
 export interface Day {
   date: string;
   availableTimes: number;
-  packageType: 'hot' | 'cold';
+  packageType: 'hot' | 'cold' | 'relax';
 }
 
 //Huvudkomponenten.
@@ -35,7 +35,14 @@ function App() {
 
       //Konverterar de grupperade bokningarna till en lista med datum, lediga tider och behandlingstyp.
       const formattedBookings = Object.entries(grouped).map(([key, count]) => {
-        const [date, packageType] = key.split('|') as [string, 'hot' | 'cold'];
+        const [date, packageType] = key.split('|') as [string, 'hot' | 'cold' | 'relax']
+        if (packageType === 'relax') {
+          return {
+            date,
+            availableTimes: 2 - count,
+            packageType,
+          };
+        }
         return {
           date,
           availableTimes: 3 - count,
