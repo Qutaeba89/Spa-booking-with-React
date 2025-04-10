@@ -49,8 +49,8 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
 
     //Funktion som returnerar svenska strängar beroende på behandling.
     function getPackageLabel(choice: string | null) {
-        if (choice === 'hot') return 'Varm';
-        if (choice === 'cold') return 'Kall';
+        if (choice === 'Hot') return 'Varm';
+        if (choice === 'Cold') return 'Kall';
         return '';
     }
 
