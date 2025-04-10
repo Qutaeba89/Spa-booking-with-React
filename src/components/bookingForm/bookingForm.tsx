@@ -44,15 +44,18 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
     }, [chosenDate, packageChoice])
 
 
-    function priceCalc({ packageType, numOfAdults, numOfKids }: { packageType: string, numOfAdults: number, numOfKids: number }) {
-        const adultPrice = packageType === "hot" ? 700 : 500;
-        const kidPrice = adultPrice * 0.5; // Assuming kids pay half price
-        let totalPrice = 350 + (numOfAdults * adultPrice) + (numOfKids * kidPrice);
+
+
+    function priceCalc({ packageType, numOfAdults, numOfKids }: { packageType: String, numOfAdults: number, numOfKids: number }) {
+
+        const price = 350 + numOfAdults * (packageType == "hot" ? 700 : 500) + numOfKids * (packageType == "hot" ? 700 : 500) * 0.5;
+        
         if (chosenDate?.getDay() === 2) {
-            totalPrice *= 0.85; // 15% discount on Tuesdays
+            return price * 0.85;
             console.log("Tisdagsrabatt");
         }
-        return totalPrice;
+        return price;
+
     }
 
 
