@@ -43,9 +43,9 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
     }, [chosenDate, packageChoice])
 
 
-    function priceCalc({ packageType, numOfAdults, numOfChildren }: { packageType: String, numOfAdults: number, numOfChildren: number }) {
+    function priceCalc({ packageType, numOfAdults, numOfKids }: { packageType: String, numOfAdults: number, numOfKids: number }) {
 
-        const price = 350 + numOfAdults * (packageType == "hot" ? 700 : 500) + numOfChildren * (packageType == "hot" ? 700 : 500) * 0.5;
+        const price = 350 + numOfAdults * (packageType == "hot" ? 700 : 500) + numOfKids * (packageType == "hot" ? 700 : 500) * 0.5;
         
         if (chosenDate?.getDay() === 2) {
             return price * 0.85;
