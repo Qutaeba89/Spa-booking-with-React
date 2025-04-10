@@ -2,6 +2,8 @@ import React from 'react';
 
 function PackageButtons({ packageChoice, setPackageChoice }) {
   return (
+    <div>
+      <p>Just nu har tisdagsrabatt, 15%! </p>
     <div className="package-buttons">
       <button className={`package-btn hot-btn ${packageChoice === 'hot' ? 'selected' : ''}`}
         onClick={() => setPackageChoice('hot')}
@@ -15,6 +17,7 @@ function PackageButtons({ packageChoice, setPackageChoice }) {
         ❄️ Kall
       </button>
     </div>
+  </div>
   );
 }
 
