@@ -67,7 +67,6 @@
   }
   .booking-section {
 	margin-top: -2rem;
-
   }
 
 .footer {
@@ -76,7 +75,7 @@
 	background-color: #e0e0e0;
 	color: #333;
 	font-size: 0.9rem;
-	margin-top: auto;
+	margin-top: -65px;
 }
 
 .package-buttons {
@@ -166,3 +165,13 @@
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
+.spa-pic {
+	background-image: url('/public/spa-pic.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100vh; /* or any height you want */
+  }
+  body{
+	color: #ddd;
+  }

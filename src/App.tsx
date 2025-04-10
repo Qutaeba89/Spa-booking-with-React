@@ -60,6 +60,7 @@ function App() {
   return (
 
     <div className='app'>
+      <div className='spa-pic'>
 
       {/* Header. */}
       <header className='header-bar'>
@@ -95,7 +96,9 @@ function App() {
 
 
       {/* Footer. */}
-      <footer className='footer'>
+
+    </div>
+    <footer className='footer'>
         <span className='footer-title'>För frågor eller om Ni vill avboka er tid, vänligen kontakta oss per telefon på 010-155 53 35.</span>
         <br />
         <span className='footer-title'> © 2025 Spa med Spa</span>
