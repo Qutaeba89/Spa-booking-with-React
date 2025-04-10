@@ -1,20 +1,52 @@
-# React + Vite
+#  Spa med Spa – Bokningssystem
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Beskrivning
+Välkommen till **Spa med Spa** – ett bokningssystem byggt med React, TypeScript och Vite, med en lokal JSON-server som backend. Här kan användare boka behandlingar, välja tider, se tillgänglighet via en färgkodad kalender, och få prisberäkning direkt i formuläret.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Github projects länk:  
+(https://github.com/users/adNord/projects/5)
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Techstack
+- Vite
+- TypeScript
+- React
+- Json server för att lokalt spara bokningar
+-  API för hämtning av helgdagar (sholiday.faboul.se )
 
-## To Start Json server you need two steps:
-  * Instal: npm install json-server --save-dev
-  * Run server: npm run server
-## Run React:
-  * npm install vite --save-dev
+## Funktioner 
+- Val av behandling ("hot" eller "cold")
 
-## Importent Start server in windows Terminal and Json in vs code terminal otherwize react and Json does not work in same terminal!!
+- Visuellt schema med kalender
+
+- Färgkodad tillgänglighet (grön/gul/röd)
+
+- Formulär med validering (namn, e-post, tid, antal personer)
+
+- Prisberäkning baserat på val
+
+- Bokningar sparas i db.json via JSON-server
+
+- Helgdagar hämtas från extern API för att blockera bokning
+
+
+## Steg för installation
+1. Klona repot
+```
+git clone <https://github.com/adNord/spa_grupp2>
+```
+2. Installera beroenden
+```
+npm install
+```
+### (Viktigt att starta i olika terminaler då de inte kan köras i samma!)
+3. Starta Json server 
+```
+npm run server 
+```
+4. Starta utvecklingsserver 
+```
+npm run dev
+```
+
