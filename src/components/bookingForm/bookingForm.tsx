@@ -48,7 +48,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
 
     function priceCalc({ packageType, numOfAdults, numOfKids }: { packageType: String, numOfAdults: number, numOfKids: number }) {
 
-        const price = 350 + numOfAdults * (packageType == "hot" ? 700 : 500) + numOfKids * (packageType == "hot" ? 700 : 500) * 0.5;
+        const price = 350 + numOfAdults * (packageType == "Hot" ? 700 : 500) + numOfKids * (packageType == "Hot" ? 700 : 500) * 0.5;
 
         if (chosenDate?.getDay() === 2) {
             return price * 0.85;
@@ -198,15 +198,16 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                 <span>Pris: {packageChoice ? Math.round(priceCalc({ packageType: packageChoice, numOfAdults, numOfKids })) + " kr" : ''}
 
                 </span>
-                {/* {numOfGuests !== 0 && packageChoice && (
+                {numOfAdults !== 0 && packageChoice && (
                 <span>
                     Children: <strong>Test</strong> <br />
                     Paket: <strong>{packageChoice}</strong> <br />
-                    Antal personer: <strong>{numOfGuests}</strong> <br />
+                    Antal personer: <strong>{numOfAdults}</strong> <br />
                     Rabbat: <strong>Tisdags Rabbat 15% </strong> <br />
-                    Totalt pris: <strong>{priceCalc({ packageType: packageChoice, numOfGuests })} kr - discount</strong>
+                    Totalt pris: <strong>{priceCalc({ packageType: packageChoice, numOfAdults, numOfKids })} kr - discount</strong>
                 </span>
-                )} */}
+                )}
+
 
                 {/* Submit-knapp som skickar bokningsformuläret (om allting är ifyllt). */}
                 <button className='package-btn-boka' type='submit' disabled={loading}>
