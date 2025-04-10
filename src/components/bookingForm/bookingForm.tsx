@@ -45,12 +45,12 @@ function BookingForm({ packageChoice, chosenDate, onBooked, bookings }: { packag
 
     function priceCalc({ packageType, numOfAdults, numOfKids }: { packageType: String, numOfAdults: number, numOfKids: number }) {
       
-        const isHot = packageType === "hot";
+        const isHot = packageType === "Hot";
         const isRelax = packageType === "relax";
 
         const adultPrice = isRelax ? 300 : (isHot ? 700 : 500);
         const kidPrice = isRelax ? 300 * 0.5 : (isHot ? 700 : 500) * 0.5;
-
+        
         let discount = 0;
 
         const price = 350 + numOfAdults * adultPrice + numOfKids * kidPrice;
