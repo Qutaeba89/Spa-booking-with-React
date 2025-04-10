@@ -102,12 +102,12 @@ function BookingForm({ packageChoice, chosenDate, onBooked }: { packageChoice: s
                             <button
                                 key={timeslot}
                                 type='button'
-                                className={selectedTimeslot === timeslot ? 'selected' : ''}
+                                className={bookedTimeslots.includes(timeslot) ? 'booked' : (selectedTimeslot === timeslot ? 'selected' : '')}
                                 onClick={() => setSelectedTimeslot(timeslot)}
                                 disabled={bookedTimeslots.includes(timeslot)}
                                 style={bookedTimeslots.includes(timeslot) ? { backgroundColor: 'grey', cursor: 'not-allowed' } : {}}
                             >
-                                <span>{timeslot}</span>
+                                <span className='timeslot-Name'>{bookedTimeslots.includes(timeslot) ? 'Booked' : timeslot}</span>
                                 <span className='timeslot-info'>{timeslotInfo[timeslot]}</span>
                             </button>
                         </div>

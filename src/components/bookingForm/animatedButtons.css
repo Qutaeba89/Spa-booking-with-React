@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
+    height: 100px;
 }
 
 .button-group button {
@@ -74,6 +75,15 @@
     border-top-right-radius: 50% 5px;
     z-index: 2;
     transition: all 0.3s ease;
+}
+
+.button-group button.booked {
+    height: 42px;
+}
+
+.button-group button.booked::after {
+    background-color: grey;
+    height: 100px;
 }
 
 .button-group button.selected::before {
