@@ -79,7 +79,7 @@ function App() {
 
       {/* Huvudinnehåll (val av behandling, kalender och bokningsformulär). */}
       <main className='main-container'>
-        <span className='blink'>Just nu Tisdag har vi 15% rabbat boka nu!</span>
+        <span className='blink'>Erbjudande: På tisdagar har vi 15% rabatt, boka nu!</span>
         <div className='booking-layout-wrapper'>
           <div className='booking-layout-calendar'>
             <BookingCalendar

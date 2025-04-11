@@ -7,20 +7,21 @@ function PackageButtons({ packageChoice, setPackageChoice }) {
    
     <div className="package-buttons">
       <button className={`package-btn hot-btn ${packageChoice === 'hot' ? 'selected' : ''}`}
-        onClick={() => setPackageChoice('Hot')}
+        onClick={() => setPackageChoice('hot')}
       >
         🔥 Varm
       </button>
       <button
         className={`package-btn cold-btn ${packageChoice === 'cold' ? 'selected' : ''}`}
-        onClick={() => setPackageChoice('Cold')}
+        onClick={() => setPackageChoice('cold')}
       >
         ❄️ Kall
       </button>
       <button
         className={packageChoice === 'relax' ? 'selected' : ''}
-        onClick={() => setPackageChoice('relax')}
-></button>
+        onClick={() => setPackageChoice('relax')}  
+      >
+        Varva ner</button>
     </div>
     </div>
   );
