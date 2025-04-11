@@ -111,6 +111,10 @@
 	background: linear-gradient(45deg, #4fc3f7, #81d4fa);
 	color: white;
 }
+.relax-btn {
+	background: linear-gradient(45deg, #4ff77c, #81fac3);
+	color: white;
+}
 
 .package-btn:hover {
 	transform: scale(1.05);
