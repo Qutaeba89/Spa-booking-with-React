@@ -18,7 +18,7 @@ function PackageButtons({ packageChoice, setPackageChoice }) {
         ❄️ Kall
       </button>
       <button
-        className={packageChoice === 'relax' ? 'selected' : ''}
+        className={`package-btn chill-btn ${packageChoice === 'relax' ? 'selected' : ''}`}
         onClick={() => setPackageChoice('relax')}  
       >
         Varva ner</button>

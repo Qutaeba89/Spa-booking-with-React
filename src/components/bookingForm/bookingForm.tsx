@@ -63,7 +63,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked, bookings }: { packag
             tuesdayDiscount = price * 0.15;
         }
         // return price;
-        discount = kidDiscount + tuesdayDiscount;
+        discount = tuesdayDiscount;
         const total = price - tuesdayDiscount;
         const perKid = kidPrice;
         const perAdult = adultPrice;
@@ -223,11 +223,16 @@ function BookingForm({ packageChoice, chosenDate, onBooked, bookings }: { packag
                             Vuxna: <strong>{numOfAdults} x {perAdult} kr </strong> <br />
                             {numOfKids > 0 && (
                                 <>
-                                Barn: <strong>{numOfKids} x {perKid} kr</strong> <br />
+                                Barn: <strong>{numOfKids} x {perKid} kr</strong> <span className='barnRabatt'>50% för barn under 12 år</span> <br />
                                 </>
                             )}
                             Grundavgift: <strong>{fee}</strong> <br />
-                            Rabatt: <strong>{Math.round( - discount)} kr </strong> <br />
+                            {chosenDate?.getDay() === 2 && (
+                                <>
+                                Rabatt: <strong>{Math.round( - discount)} kr </strong> <br />
+                                </>
+                            )}
+                            
                             Totalt pris (inklusive rabatt): <strong>{total} kr</strong>
                         </span>
                     );

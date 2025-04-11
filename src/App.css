@@ -112,6 +112,11 @@
 	color: white;
 }
 
+.chill-btn {
+	background: linear-gradient(45deg, #64ff3d, #88ff6a);
+	color: white;
+}
+
 .package-btn:hover {
 	transform: scale(1.05);
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
@@ -166,3 +171,7 @@
   body{
 	color: #ddd;
   }
+
+.barnRabatt {
+	font-size: small;
+}
