@@ -26,8 +26,6 @@ function BookingForm({ packageChoice, chosenDate, onBooked, bookings }: { packag
         Sunset: "18:00 - 22:00"
     };
 
-
-    //Funktion som beräknar priset för en bokning.
     useEffect(() => {
         if (chosenDate) {
             const formattedDate = format(chosenDate, 'yyyy-MM-dd');
@@ -43,35 +41,41 @@ function BookingForm({ packageChoice, chosenDate, onBooked, bookings }: { packag
         }
     }, [chosenDate, packageChoice, bookings])
 
+    //Funktion som beräknar priset för en bokning.
     function priceCalc({ packageType, numOfAdults, numOfKids }: { packageType: String, numOfAdults: number, numOfKids: number }) {
-      
-        const isHot = packageType === "Hot";
-        const isRelax = packageType === "Relax";
+        
+        let kidDiscount = 0;
+        let tuesdayDiscount = 0;
+        let discount = 0;
+
+        const isHot = packageType === "hot";
+        const isRelax = packageType === "relax";
 
         const adultPrice = isRelax ? 300 : (isHot ? 700 : 500);
         const kidPrice = isRelax ? 300 * 0.5 : (isHot ? 700 : 500) * 0.5;
-        const grundAvgift = 350;
+        const basePay = 350;
 
-        let discount = 0;
+        const price = basePay + numOfAdults * adultPrice + numOfKids * kidPrice;
+        
+        kidDiscount = numOfKids * kidPrice;
 
-        const price = 350 + numOfAdults * adultPrice + numOfKids * kidPrice;        
         if (chosenDate?.getDay() === 2) {
-            discount = price * 0.15;
+            tuesdayDiscount = price * 0.15;
         }
         // return price;
-        const total = price - discount;
-        const perKids = kidPrice;
+        discount = kidDiscount + tuesdayDiscount;
+        const total = price - tuesdayDiscount;
+        const perKid = kidPrice;
         const perAdult = adultPrice;
-        const avgift =grundAvgift;
+        const fee = basePay;
 
-        return { total, discount, perKids ,perAdult,avgift };
+        return { total, discount, perKid, perAdult, fee };
     }
-
 
     //Funktion som returnerar svenska strängar beroende på behandling.
     function getPackageLabel(choice: string | null) {
-        if (choice === 'Hot') return 'Varm';
-        if (choice === 'Cold') return 'Kall';
+        if (choice === 'hot') return 'Varm';
+        if (choice === 'cold') return 'Kall';
         if (choice === 'relax') return 'Varva ner';
         return '';
     }
@@ -86,7 +90,7 @@ function BookingForm({ packageChoice, chosenDate, onBooked, bookings }: { packag
             alert("Ange en giltig e-postadress.");
             return;
         }
-        if (!chosenDate || !selectedTimeslot || !packageChoice) {
+        if (!chosenDate || !selectedTimeslot || !packageChoice || (packageChoice === 'relax' && ![0, 6].includes(chosenDate.getDay()))) {
             alert("Vänligen fyll i alla fält och välj datum, tid och paket.");
             return;
         }
@@ -210,24 +214,21 @@ function BookingForm({ packageChoice, chosenDate, onBooked, bookings }: { packag
                 </div>
 
 
-                {/* Visar priset. */}
-                {/* <span>Pris: {packageChoice ? Math.round(priceCalc({ packageType: packageChoice, numOfAdults, numOfKids }).total) + " kr" : ''}
-
-                </span> */}
                 {numOfAdults !== 0 && packageChoice && (() => {
-                    const { total, discount, perKids ,perAdult, avgift  } = priceCalc({ packageType: packageChoice, numOfAdults, numOfKids });
+                    const { total, discount, perKid, perAdult, fee } = priceCalc({ packageType: packageChoice, numOfAdults, numOfKids });
                     return (
+                        
                         <span>
+                            Paket: <strong>{getPackageLabel(packageChoice)}</strong> <br />
+                            Vuxna: <strong>{numOfAdults} x {perAdult} kr </strong> <br />
                             {numOfKids > 0 && (
                                 <>
-                                Barn: <strong>{numOfKids} x {perKids} kr</strong> <br />
+                                Barn: <strong>{numOfKids} x {perKid} kr</strong> <br />
                                 </>
                             )}
-                            Paket: <strong>{packageChoice}</strong> <br />
-                            Antal vuxna: <strong>{numOfAdults} x {perAdult} kr </strong> <br />
-                            <span>Rabbat: <strong>{Math.round( - discount)} kr </strong></span>  <br />
-                            Avgift: <strong>{avgift}</strong> <br />
-                            Totalt pris: <strong>{total} kr</strong>
+                            Grundavgift: <strong>{fee}</strong> <br />
+                            Rabatt: <strong>{Math.round( - discount)} kr </strong> <br />
+                            Totalt pris (inklusive rabatt): <strong>{total} kr</strong>
                         </span>
                     );
                 })()}

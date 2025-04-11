@@ -27,7 +27,6 @@ function BookingCalendar({ packageChoice, chosenDate, setChosenDate, bookings }:
           //Konverterar till ett JavaScript-objekt.
           const data = await response.json();
 
-
           if (data.dagar) {
             const redDays = data.dagar
               //Filterar endast röda dagar.
@@ -98,7 +97,7 @@ function BookingCalendar({ packageChoice, chosenDate, setChosenDate, bookings }:
       return 'green-day';
     if (booking.availableTimes === 0)
       return 'red-day';
-    if (booking.availableTimes < 3)
+    if (booking.availableTimes < (packageChoice === 'relax' ? 2 : 3))
       return 'yellow-day';
     return 'green-day';
   }
