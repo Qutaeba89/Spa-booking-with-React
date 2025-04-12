@@ -1,3 +1,4 @@
+It was group work with 4 students
 #  Spa med Spa – Bokningssystem
 
 ## Beskrivning
