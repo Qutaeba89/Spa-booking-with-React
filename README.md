@@ -1,53 +1,58 @@
-It was group work with 4 students
-#  Spa med Spa – Bokningssystem
+# Spa med Spa — Booking System
 
-## Beskrivning
-Välkommen till **Spa med Spa** – ett bokningssystem byggt med React, TypeScript och Vite, med en lokal JSON-server som backend. Här kan användare boka behandlingar, välja tider, se tillgänglighet via en färgkodad kalender, och få prisberäkning direkt i formuläret.
+A spa treatment booking system built with React, TypeScript, and Vite, backed by a local JSON
+server. Users can book treatments, pick a time slot, see availability on a color-coded calendar,
+and get an instant price calculation.
 
+Built as a group project with 4 students. My focus was on the booking form, calendar, and pricing
+logic.
 
-Github projects länk:  
-(https://github.com/users/adNord/projects/5)
+## Features
 
+- Choose a treatment ("hot" or "cold")
+- Visual calendar schedule with color-coded availability (green / yellow / red)
+- Validated booking form (name, email, time, number of people)
+- Automatic price calculation based on selections
+- Bookings persisted to `db.json` via `json-server`
+- Public holidays fetched from an external API to block bookings on those dates
 
-## Techstack
-- Vite
-- TypeScript
-- React
-- Json server för att lokalt spara bokningar
--  API för hämtning av helgdagar (sholiday.faboul.se )
+## Tech stack
 
-## Funktioner 
-- Val av behandling ("hot" eller "cold")
+Vite, TypeScript, React, `json-server` (local persistence), [sholiday.faboul.se](https://sholiday.faboul.se) (holiday API).
 
-- Visuellt schema med kalender
+## Getting started
 
-- Färgkodad tillgänglighet (grön/gul/röd)
+**Prerequisites:** Node.js 18+, npm.
 
-- Formulär med validering (namn, e-post, tid, antal personer)
-
-- Prisberäkning baserat på val
-
-- Bokningar sparas i db.json via JSON-server
-
-- Helgdagar hämtas från extern API för att blockera bokning
-
-
-## Steg för installation
-1. Klona repot
-```
-git clone <https://github.com/adNord/spa_grupp2>
-```
-2. Installera beroenden
-```
+```bash
+git clone https://github.com/Qutaeba89/Spa-booking-with-React.git
+cd Spa-booking-with-React
 npm install
 ```
-### (Viktigt att starta i olika terminaler då de inte kan köras i samma!)
-3. Starta Json server 
-```
-npm run server 
-```
-4. Starta utvecklingsserver 
-```
-npm run dev
+
+Run the JSON server and the dev server in **separate terminals**:
+
+```bash
+npm run server   # json-server on :3001
+npm run dev      # Vite dev server
 ```
 
+## Project structure
+
+```
+src/
+  App.tsx
+  components/
+    bookingForm/bookingForm.tsx      # form + validation + pricing
+    calendar/bookingCalendar.tsx      # color-coded availability calendar
+    packageButtons/packageButtons.tsx # treatment selection
+```
+
+## Scripts
+
+```bash
+npm run dev      # dev server
+npm run build    # production build
+npm run lint     # eslint
+npm run server   # local JSON persistence server
+```
